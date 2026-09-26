@@ -423,35 +423,6 @@
       submitUserFeedback();
     }
 
-    async function generateCustomPlan() {
-      const profile = getFormProfile();
-      logTerminal(`User profile submitted for <strong>${profile.name}</strong> (${profile.fitness_goal}, ${profile.location_city}).`);
-
-      // Update Summary Bar
-      document.getElementById('disp_user').innerText = `${profile.name} (${profile.age}, ${profile.gender})`;
-      document.getElementById('disp_bio').innerHTML = `${profile.weight_kg} kg | ${profile.height_cm} cm | <span style="color: var(--primary);">${profile.fitness_goal.replace('_', ' ').toUpperCase()}</span>`;
-      document.getElementById('disp_injuries').innerText = profile.injuries.length ? `Injuries: ${profile.injuries.join(', ')}` : 'No Injuries';
-      document.getElementById('disp_allergies').innerText = profile.allergies.length ? `Allergies: ${profile.allergies.join(', ')}` : 'No Allergies';
-      document.getElementById('disp_city').innerText = profile.location_city;
-
-      // 1. Calculate BMR & TDEE (Mifflin-St Jeor)
-      let bmr = (profile.gender === 'male') 
-        ? (10 * profile.weight_kg + 6.25 * profile.height_cm - 5 * profile.age + 5)
-        : (10 * profile.weight_kg + 6.25 * profile.height_cm - 5 * profile.age - 161);
-      
-      let tdee = bmr * 1.375;
-      let targetCals = Math.round(profile.fitness_goal === 'fat_loss' ? (tdee - 450) : (profile.fitness_goal === 'muscle_gain' ? (tdee + 300) : tdee));
-      targetCals = Math.max(targetCals, 1300);
-
-      let pRatio = (profile.fitness_goal === 'fat_loss') ? 0.35 : 0.30;
-      let cRatio = (profile.fitness_goal === 'fat_loss') ? 0.40 : 0.45;
-      let fRatio = 0.25;
-
-      let proteinG = Math.round((targetCals * pRatio) / 4);
-      let carbsG = Math.round((targetCals * cRatio) / 4);
-      let fatsG = Math.round((targetCals * fRatio) / 9);
-      let waterL = (profile.weight_kg * 0.035).toFixed(1);
-
     // Multi-Section History & Dynamic Adaptation State
     const historyState = {
       currentWorkout: null,
