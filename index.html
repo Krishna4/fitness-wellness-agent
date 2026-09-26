@@ -28,15 +28,18 @@
     .badge { background: rgba(26, 153, 136, 0.18); color: var(--primary); padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; border: 1px solid var(--primary); }
     
     /* Profile Form */
-    .profile-card { background: var(--card-bg); border: 1px solid var(--primary); border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+    .profile-card { background: var(--card-bg); border: 1px solid var(--primary); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
     .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 14px; }
     .form-group { display: flex; flex-direction: column; gap: 6px; }
     .form-group label { font-size: 11.5px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
     .form-control { background: var(--input-bg); border: 1px solid var(--card-border); border-radius: 6px; padding: 8px 12px; font-size: 13px; color: var(--text); outline: none; }
     .form-control:focus { border-color: var(--primary); }
-    .btn-submit { background: var(--primary); color: #fff; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .btn-submit { background: var(--primary); color: #fff; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s; white-space: nowrap; }
     .btn-submit:hover { background: var(--primary-dark); }
     
+    .quick-chip { background: #334155; color: #E2E8F0; border: 1px solid #475569; padding: 4px 10px; border-radius: 999px; font-size: 11.5px; cursor: pointer; transition: 0.2s; }
+    .quick-chip:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 20px; }
     .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px; }
     .card-title { font-size: 16px; font-weight: 600; color: var(--primary); display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
@@ -49,7 +52,7 @@
     .stat-label { color: var(--text-muted); }
     .stat-val { font-weight: 600; color: var(--text); }
     .alert-box { background: rgba(235, 86, 0, 0.12); border-left: 3px solid var(--coral); padding: 10px 12px; font-size: 12px; color: #FDBA74; margin-top: 12px; border-radius: 0 6px 6px 0; }
-    .chat-box { background: rgba(15, 23, 42, 0.6); border-radius: 8px; padding: 14px; min-height: 120px; font-size: 13px; line-height: 1.5; color: #E2E8F0; }
+    .chat-box { background: rgba(15, 23, 42, 0.6); border-radius: 8px; padding: 14px; min-height: 90px; font-size: 13px; line-height: 1.5; color: #E2E8F0; }
     .footer-note { text-align: center; margin-top: 30px; font-size: 12px; color: var(--text-muted); }
   </style>
 </head>
@@ -58,20 +61,20 @@
     <header>
       <div>
         <h1 style="font-size: 22px; font-weight: 700; color: var(--text);">Fitness & Wellness Agent</h1>
-        <p style="font-size: 13px; color: var(--text-muted);">Autonomous Health, Nutrition & Location-Aware Assistant</p>
+        <p style="font-size: 13px; color: var(--text-muted);">Autonomous Health, Nutrition & Location-Aware Assistant | IIIT Hyderabad</p>
       </div>
       <div style="text-align: right;">
         <span class="badge">Team FitPulse</span>
-        <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Dynamic User Onboarding Mode</p>
+        <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Presenter: Murali Krishna D</p>
       </div>
     </header>
 
-    <!-- User Profile Onboarding Section -->
+    <!-- SECTION 1: User Profile Input -->
     <div class="profile-card">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <div>
-          <h2 style="font-size: 16px; font-weight: 600; color: var(--text);">📋 Enter Your Fitness Details</h2>
-          <p style="font-size: 12px; color: var(--text-muted);">The agent tailors workouts, macros, safety gates, and nearby facility lookups to your input.</p>
+          <h2 style="font-size: 16px; font-weight: 600; color: var(--text);">📋 Step 1: User Fitness Profile</h2>
+          <p style="font-size: 12px; color: var(--text-muted);">Enter your attributes to calibrate the agent's baseline models, safety gates, and facility lookups.</p>
         </div>
         <button class="btn-submit" onclick="generateCustomPlan()">⚡ Generate My Plan</button>
       </div>
@@ -155,7 +158,38 @@
       </div>
     </div>
 
-    <!-- 5 Core Features Grid -->
+    <!-- FEATURE 5 (PLACED AT TOP): Active Plan Monitor & Real-Time Adaptation -->
+    <div class="card" style="border: 1px solid var(--blue); margin-bottom: 24px; background: rgba(30, 41, 59, 0.9);">
+      <div class="card-title" style="color: var(--blue);">
+        <span>⚡ 5. Active Plan Monitor & Real-Time Plan Adaptation</span>
+        <span class="meta-tag" style="background: rgba(56, 189, 248, 0.2); color: var(--blue); border: 1px solid var(--blue);">Active Feedback Loop</span>
+      </div>
+      <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px;">
+        The agent actively listens to your ongoing feedback (fatigue, joint strain, exertion, plateaus) to <strong>dynamically recalibrate and improve</strong> your fitness & nutrition plan in real-time.
+      </p>
+
+      <!-- Feedback Input Box -->
+      <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+        <input type="text" id="inp_feedback" class="form-control" style="flex: 1;" placeholder="Enter ongoing feedback (e.g. 'I feel exhausted today', 'My shoulder hurts', 'Workouts feel too easy', 'My weight is stuck on a plateau')...">
+        <button class="btn-submit" style="background: var(--blue);" onclick="submitUserFeedback()">⚡ Adapt & Improve Plan</button>
+      </div>
+
+      <!-- Quick Feedback Shortcut Chips -->
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px;">
+        <span style="font-size: 11px; color: var(--text-muted);">Quick Cues:</span>
+        <button class="quick-chip" onclick="quickFeedback('I feel completely exhausted and too sore today')">😫 Exhausted / Sore</button>
+        <button class="quick-chip" onclick="quickFeedback('My shoulder hurts whenever I press overhead')">⚠️ Shoulder Discomfort</button>
+        <button class="quick-chip" onclick="quickFeedback('The bodyweight workouts feel too easy now, need more challenge')">💪 Too Easy / Overload</button>
+        <button class="quick-chip" onclick="quickFeedback('My weight is stuck on a plateau for two weeks')">📉 Weight Stuck / Plateau</button>
+      </div>
+
+      <!-- Coach Real-time Adaptation Output -->
+      <div class="chat-box" id="coach_chat">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </div>
+
+    <!-- Core Features Grid (1 to 4) -->
     <div class="grid">
       <!-- 1. Personalized Workouts -->
       <div class="card">
@@ -245,35 +279,19 @@
           <div class="item-desc" id="disp_log_summary">Daily consistency goal: 4 structured sessions per week.</div>
         </div>
       </div>
-
-      <!-- 5. Active Plan Monitor & Adaptive Evolution -->
-      <div class="card" style="grid-column: span 2;">
-        <div class="card-title">
-          <span>⚡ 5. Active Plan Monitor & Real-Time Adaptation</span>
-          <span class="meta-tag">Closed-Loop Feedback</span>
-        </div>
-        <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px;">
-          The agent continuously monitors your feedback (soreness, fatigue, joint discomfort, difficulty) and adapts the fitness & nutrition plan in real-time.
-        </p>
-
-        <!-- Feedback Input Box -->
-        <div style="display: flex; gap: 10px; margin-bottom: 14px;">
-          <input type="text" id="inp_feedback" class="form-control" style="flex: 1;" placeholder="Try typing: 'I feel exhausted today' or 'My shoulder hurts' or 'Workouts feel too easy'...">
-          <button class="btn-submit" onclick="submitUserFeedback()">Submit Feedback</button>
-        </div>
-
-        <div class="chat-box" id="coach_chat">
-          <!-- Populated dynamically via JS -->
-        </div>
-      </div>
     </div>
 
     <div class="footer-note">
-      Fitness & Wellness Agent | Pure Python 3 & Modular ReAct Architecture
+      Fitness & Wellness Agent | Pure Python 3 & Modular ReAct Architecture | GitHub: Krishna4/fitness-wellness-agent
     </div>
   </div>
 
   <script>
+    function quickFeedback(text) {
+      document.getElementById('inp_feedback').value = text;
+      submitUserFeedback();
+    }
+
     function generateCustomPlan() {
       const name = document.getElementById('inp_name').value || 'Guest';
       const age = parseInt(document.getElementById('inp_age').value) || 28;
@@ -372,14 +390,11 @@
       let targetWeight = (goal === 'fat_loss') ? (weight - 4).toFixed(1) : (goal === 'muscle_gain' ? (weight + 3).toFixed(1) : weight);
       document.getElementById('disp_target_weight').innerText = `${targetWeight} kg (${goal === 'fat_loss' ? '-4 kg' : '+3 kg'})`;
 
-      // 5. Coach Message
+      // 5. Initial Coach Message
       document.getElementById('coach_chat').innerHTML = `
-        <p style="color: var(--primary); font-weight: 600; margin-bottom: 6px;">Coach FitPulse says:</p>
-        <p style="margin-bottom: 8px;">"Welcome, ${name}! Your profile is fully calibrated for <strong>${goal.replace('_', ' ').toUpperCase()}</strong>. We've structured your daily nutrition target to <strong>${targetCals} kcal</strong> with <strong>${proteinG}g protein</strong>."</p>
-        <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 6px;"><strong>Active Monitor Status:</strong> Listening for real-time feedback (soreness, fatigue, pain, difficulty) to evolve your plan.</p>
-        <div style="font-size: 11px; color: #64748B; border-top: 1px solid #334155; padding-top: 6px; margin-top: 6px;">
-          ⚠️ <em>Disclaimer: AI wellness guidance does not replace professional medical advice.</em>
-        </div>
+        <p style="color: var(--blue); font-weight: 600; margin-bottom: 6px;">🤖 Coach FitPulse (Gemini Lite Active):</p>
+        <p style="margin-bottom: 6px;">"Profile synchronized for <strong>${name}</strong> (${goal.replace('_', ' ').toUpperCase()}). Target: <strong>${targetCals} kcal</strong> with <strong>${proteinG}g protein</strong>."</p>
+        <p style="color: var(--text-muted); font-size: 12.5px;"><em>Active Monitor is listening above. Enter how you feel or test the quick cue buttons to watch the plan adapt in real-time.</em></p>
       `;
     }
 
@@ -398,13 +413,13 @@
           "Hydration milestone bumped by +400ml to accelerate metabolic waste clearance.",
           "Post-workout recovery window updated with +25g complex carbohydrates."
         ];
-        document.getElementById('disp_workout_duration').innerText = "30 mins (Deload)";
+        document.getElementById('disp_workout_duration').innerText = "30 mins (Deload Mode)";
       } else if (q.includes("shoulder") || q.includes("hurt") || q.includes("pain")) {
         title = "Joint Safety Gate Activated (Injury Avoidance)";
         bullets = [
           "Detected acute discomfort: Overhead pressing eliminated from schedule.",
           "Substituted with Chest-Supported Incline DB Rows to offload the anterior deltoid.",
-          "Registered limitation in memory to avoid future vertical overhead loads."
+          "Registered limitation in persistent memory to avoid future vertical overhead loads."
         ];
         document.getElementById('disp_injuries').innerText = "Injuries: shoulder_strain (Active Gate)";
       } else if (q.includes("easy") || q.includes("harder") || q.includes("challenge")) {
@@ -414,7 +429,7 @@
           "Substituted standard push-ups with Diamond Push-ups (advanced chest/tricep variation).",
           "Scheduled load increment of +2.5 kg on primary lifts for the next 7-day cycle."
         ];
-        document.getElementById('disp_workout_duration').innerText = "65 mins (Overload)";
+        document.getElementById('disp_workout_duration').innerText = "65 mins (Overload Mode)";
       } else if (q.includes("plateau") || q.includes("stuck")) {
         title = "Metabolic Breakthrough Protocol Triggered";
         bullets = [
@@ -433,14 +448,14 @@
       let bulletsHtml = bullets.map(b => `<li style="margin-left: 18px; margin-bottom: 4px;">${b}</li>`).join('');
 
       document.getElementById('coach_chat').innerHTML = `
-        <div style="background: rgba(26, 153, 136, 0.15); border: 1px solid var(--primary); padding: 10px; border-radius: 6px; margin-bottom: 10px;">
-          <strong style="color: var(--primary);">⚡ Feedback Received:</strong> "${fb}"
-          <div style="font-size: 13px; font-weight: 600; color: #fff; margin-top: 6px;">${title}</div>
-          <ul style="font-size: 12px; color: #E2E8F0; margin-top: 6px;">
+        <div style="background: rgba(56, 189, 248, 0.12); border: 1px solid var(--blue); padding: 12px; border-radius: 8px; margin-bottom: 8px;">
+          <strong style="color: var(--blue);">⚡ Feedback Analyzed:</strong> "${fb}"
+          <div style="font-size: 13.5px; font-weight: 600; color: #fff; margin-top: 6px;">${title}</div>
+          <ul style="font-size: 12.5px; color: #E2E8F0; margin-top: 6px;">
             ${bulletsHtml}
           </ul>
         </div>
-        <p style="font-size: 12px; color: var(--text-muted);">Your ongoing fitness and nutrition plan has been updated dynamically in memory.</p>
+        <p style="font-size: 11.5px; color: var(--text-muted);">✓ The ongoing fitness and nutrition plan below has been updated dynamically in memory.</p>
       `;
 
       document.getElementById('inp_feedback').value = "";
