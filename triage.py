@@ -10,8 +10,8 @@ class IntentTriage:
     """Deterministic Rule-based Intent Classifier."""
 
     ADAPTATION_KEYWORDS = [
-        "sore", "exhausted", "tired", "burned out", "low energy", "fatigued",
-        "hurts", "pain", "clicking", "tight", "too easy", "breeze", "harder",
+        "sore", "exhaust", "exaust", "tired", "burned out", "burnout", "low energy", "no energy", "fatigu",
+        "drained", "letharg", "hurts", "pain", "clicking", "tight", "too easy", "breeze", "harder",
         "more challenge", "plateau", "stuck", "recovery", "deload", "motivation"
     ]
     WORKOUT_KEYWORDS = ["workout", "exercise", "routine", "reps", "sets", "gym routine", "chest", "leg", "arm", "squat", "pushup", "cardio", "train "]

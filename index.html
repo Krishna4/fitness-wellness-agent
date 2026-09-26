@@ -782,28 +782,28 @@
     }
 
     // 2. Real-Time Dynamic Adaptation Engine
-    function applyPlanAdaptation(fb, llmGuidance = "") {
+    function applyPlanAdaptation(fb, forcedType = null) {
       const q = fb.toLowerCase();
       const now = new Date().toLocaleTimeString();
 
-      // 1. Archive Current State into History
+      // 1. Deep Clone Current State into History Archives
       if (historyState.currentWorkout) {
         historyState.workoutHistory.unshift({
-          ...historyState.currentWorkout,
+          ...JSON.parse(JSON.stringify(historyState.currentWorkout)),
           archivedAt: now,
           reason: fb
         });
       }
       if (historyState.currentDiet) {
         historyState.dietHistory.unshift({
-          ...historyState.currentDiet,
+          ...JSON.parse(JSON.stringify(historyState.currentDiet)),
           archivedAt: now,
           reason: fb
         });
       }
       if (historyState.currentFacilities && historyState.currentFacilities.length) {
         historyState.facilityHistory.unshift({
-          facilities: [...historyState.currentFacilities],
+          facilities: JSON.parse(JSON.stringify(historyState.currentFacilities)),
           archivedAt: now,
           reason: fb
         });
@@ -815,15 +815,28 @@
       let facBadge = "Re-ranked for Need";
       let logColor = "#38BDF8";
 
+      // Resilient fuzzy regex matching (handles typos like 'exaust', 'fatigu', 'ache', 'breeze', 'scale')
+      const isDeload = forcedType === 'deload_and_recovery' ||
+        /ex[ha]*ust|fatigu|tire|sore|drain|burn.*out|letharg|sluggish|weary|weak|low.*energy|no.*energy|sleepy|beat.*up|wiped|groggy/i.test(q);
+
+      const isJoint = forcedType === 'injury_avoidance' ||
+        /shoulder|knee|back|pain|hurt|ache|injur|tweak|stiff|sprain|joint|rotator|patella|disc|clicking/i.test(q);
+
+      const isOverload = forcedType === 'progressive_overload' ||
+        /easy|breeze|light|harder|challenge|more.*weight|increase.*weight|not.*enough|push.*more|ramp.*up|stronger/i.test(q);
+
+      const isPlateau = forcedType === 'metabolic_breakthrough' ||
+        /plateau|stuck|scale|not.*losing|same.*weight|stagnant|stall|no.*progress/i.test(q);
+
       // 2. Adapt Sections Based on Feedback Cues
-      if (q.includes("exhausted") || q.includes("tired") || q.includes("sore")) {
+      if (isDeload) {
         adaptationTitle = "Deload & Active Recovery Protocol Triggered";
         workoutBadge = "Deload & Mobility (Volume -40%)";
         dietBadge = "+500ml Water & Recovery Carbs";
         facBadge = "Recovery Spas & Hydrotherapy";
         logColor = "#F59E0B";
 
-        // Adapt Workouts
+        // Adapt Workouts to Active Recovery & Mobility
         historyState.currentWorkout = {
           title: "Deload & Joint Mobility Protocol",
           duration: "30 mins (Deload Mode)",
@@ -856,7 +869,7 @@
           { name: "Cult.fit Mobility & Yoga Center", meta: "1.4 km • ★ 4.7", desc: "Whitefields • Dedicated Foam Rolling & Restorative Yin Yoga" }
         ];
 
-      } else if (q.includes("shoulder") || q.includes("hurt") || q.includes("pain") || q.includes("knee")) {
+      } else if (isJoint) {
         adaptationTitle = "Joint Safety Gate Activated (Pain Offloading)";
         workoutBadge = "Joint-Spared Routine (No Overhead)";
         dietBadge = "Anti-Inflammatory Target";
@@ -893,7 +906,7 @@
           { name: "Cult.fit Fitness Center", meta: "1.4 km • ★ 4.8", desc: "Whitefields • Supervised posture and corrective mechanics" }
         ];
 
-      } else if (q.includes("easy") || q.includes("harder") || q.includes("challenge") || q.includes("more")) {
+      } else if (isOverload) {
         adaptationTitle = "Progressive Overload Adaptation Triggered";
         workoutBadge = "Volume & Density Increased (+25%)";
         dietBadge = "+15g Protein for Hypertrophy";
@@ -930,7 +943,7 @@
           { name: "Gold's Gym Heavy Duty Zone", meta: "3.2 km • ★ 4.5", desc: "Hills Enclave • Full Dumbbell Rack up to 60 kg" }
         ];
 
-      } else if (q.includes("plateau") || q.includes("stuck") || q.includes("scale")) {
+      } else if (isPlateau) {
         adaptationTitle = "Metabolic Breakthrough Protocol Triggered";
         workoutBadge = "HIIT & Density Circuit";
         dietBadge = "-100 kcal Deficit with Carb Cycling";
@@ -965,6 +978,44 @@
           { name: "City Athletics Stadium Olympic Track", meta: "2.8 km • ★ 4.8", desc: "Main Ring Road • 400m Track for Interval Sprints & Bleacher Steps" },
           { name: "HIIT Conditioning Arena", meta: "1.5 km • ★ 4.7", desc: "Hitech City • Sled pushes, Battle ropes & Rowers" },
           { name: "Cult.fit Boxing & HRX", meta: "1.4 km • ★ 4.8", desc: "Whitefields • 50-minute high calorie burn group sessions" }
+        ];
+
+      } else {
+        // Fallback: Dynamic Variation & Progression Protocol (guarantees plan always adapts and updates from baseline)
+        adaptationTitle = "Dynamic Variation & Progression Protocol Triggered";
+        workoutBadge = "Optimized Split Routine";
+        dietBadge = "Balanced Micronutrient Calibrated";
+        facBadge = "Cross-Training Facilities";
+        logColor = "#06B6D4";
+
+        historyState.currentWorkout = {
+          title: "Optimized Dynamic Split Routine",
+          duration: "45 mins (Balanced Rotation)",
+          exercises: [
+            { name: "Incline Dumbbell Chest Press", sets: "3 sets × 10 reps", target: "Upper Pectorals & Triceps", cue: "30-degree bench incline, smooth 2s negative descent." },
+            { name: "Romanian Dumbbell Deadlifts", sets: "3 sets × 12 reps", target: "Hamstrings & Glute Medius", cue: "Hinge at hips, keep shins vertical, neutral spine." },
+            { name: "Dumbbell Hammer Curls to Overhead Press", sets: "3 sets × 12 reps", target: "Biceps & Anterior Deltoid", cue: "Neutral grip, avoid arching lower back." },
+            { name: "Stationary Bike Interval Flush", sets: "1 session × 20 mins", target: "Aerobic Capacity & Heart Rate Flush", cue: "Alternate 1 min fast (85-90 RPM) / 1 min steady (70 RPM)." }
+          ]
+        };
+
+        historyState.currentDiet = {
+          calories: "1,820 kcal (Recalibrated Floor)",
+          protein: "162g (Optimal Bioavailability)",
+          carbs: "180g (Balanced Complex Glycogen)",
+          fats: "50g",
+          water: "2.8L / Day (Baseline Hydration)",
+          meals: [
+            { name: "[Breakfast] Scrambled Eggs & Whole Grain Toast", cals: "410 kcal", desc: "Pasture-raised eggs, avocado spread, mixed berries • 28g Protein" },
+            { name: "[Lunch] Citrus Grilled Chicken & Quinoa Salad", cals: "540 kcal", desc: "Herb-marinated chicken, cucumber, cherry tomatoes, quinoa" },
+            { name: "[Dinner] Herb-Crusted Cod Fillet & Asparagus", cals: "470 kcal", desc: "Lean white fish, roasted asparagus with lemon garlic dressing" }
+          ]
+        };
+
+        historyState.currentFacilities = [
+          { name: "Cult.fit Multi-Sport Arena", meta: "1.4 km • ★ 4.8", desc: "Whitefields • Strength Zone, Boxing, Functional Turf" },
+          { name: "Fitness One Cross-Training Hub", meta: "2.2 km • ★ 4.7", desc: "Kondapur • Power cages, turf track, and kettlebells" },
+          { name: "Gold's Gym Premium Facility", meta: "3.2 km • ★ 4.5", desc: "Hills Enclave • Cardio Deck, Free Weights, Recovery Steam" }
         ];
       }
 

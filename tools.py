@@ -233,41 +233,53 @@ class FitnessTools:
         new_injuries_detected = []
 
         # 1. Detect Acute Pain / New Joint Limitation
-        if any(w in q for w in ["shoulder pain", "shoulder hurts", "hurt my shoulder", "shoulder clicking"]):
+        if any(w in q for w in ["shoulder", "rotator", "overhead pain", "shoulder clicking", "shoulder hurts"]):
             adaptation_type = "injury_avoidance"
             new_injuries_detected.append("shoulder_pain")
             plan_adjustments.append("Removed Seated Overhead Press; substituted with Chest-Supported Incline DB Rows.")
             plan_adjustments.append("Updated persistent profile: Registered 'shoulder_pain' to avoid future overhead loads.")
 
-        elif any(w in q for w in ["knee pain", "knee hurts", "knee ache", "knees clicking"]):
+        elif any(w in q for w in ["knee", "patella", "meniscus", "knee click", "knees clicking", "knee hurts"]):
             adaptation_type = "injury_avoidance"
             new_injuries_detected.append("knee_pain")
             plan_adjustments.append("Removed Squats and Lunges; substituted with Glute Bridges and Low-Impact Bike.")
             plan_adjustments.append("Updated persistent profile: Registered 'knee_pain' to prevent high-impact knee flexion.")
 
-        # 2. Detect Fatigue / Overtraining / Excessive Soreness
-        elif any(w in q for w in ["exhausted", "tired", "too sore", "burned out", "low energy", "fatigued"]):
+        elif any(w in q for w in ["back pain", "lower back", "spine", "lumbar", "disc"]):
+            adaptation_type = "injury_avoidance"
+            new_injuries_detected.append("lower_back_pain")
+            plan_adjustments.append("Removed heavy axial spine loading; substituted with Neutral-Spine Core Planks & Floor Bridges.")
+            plan_adjustments.append("Updated persistent profile: Registered 'lower_back_pain' to protect lumbar spine.")
+
+        # 2. Detect Fatigue / Overtraining / Excessive Soreness (fuzzy stems for 'exaust', 'exhaust', 'fatigu', etc.)
+        elif any(w in q for w in [
+            "exhaust", "exaust", "fatigu", "tired", "sore", "drained", "burned out", "burnout",
+            "low energy", "no energy", "letharg", "weak", "weary", "overtrain", "beat up", "wiped out", "sleepy", "sluggish"
+        ]):
             adaptation_type = "deload_and_recovery"
             plan_adjustments.append("Reduced workout volume by 40% (switched to 2 sets of mobility & light LISS cardio).")
             plan_adjustments.append(f"Increased daily hydration target to {round(profile.weight_kg * 0.040, 1)}L (+400ml for tissue repair).")
             plan_adjustments.append("Shifted meal schedule to include +25g recovery complex carbohydrates post-session.")
 
         # 3. Detect "Too Easy" / Progressive Overload
-        elif any(w in q for w in ["too easy", "breeze", "need harder", "want more challenge", "increase weight"]):
+        elif any(w in q for w in ["too easy", "breeze", "light", "need harder", "want more challenge", "increase weight", "more weight", "not enough", "push more", "ramp up"]):
             adaptation_type = "progressive_overload"
             plan_adjustments.append("Upgraded volume: increased working sets from 3 to 4 across compound movements.")
             plan_adjustments.append("Substituted standard push-ups with Diamond Push-ups (advanced tricep/chest variation).")
             plan_adjustments.append("Added progressive overload directive: increment load by 2.5 kg on next cycle.")
 
         # 4. Detect Weight Loss Plateau
-        elif any(w in q for w in ["plateau", "stuck", "weight not moving", "stagnant"]):
+        elif any(w in q for w in ["plateau", "stuck", "weight not moving", "scale", "not losing", "same weight", "stagnant", "stall"]):
             adaptation_type = "metabolic_breakthrough"
             plan_adjustments.append("Recalibrated caloric floor: adjusted daily intake by -100 kcal to break adaptation.")
             plan_adjustments.append("Scheduled a planned carbohydrate refeed day on Day 7 to upregulate leptin.")
             plan_adjustments.append("Added 10-minute incline walking finisher to elevate daily NEAT.")
 
         else:
-            plan_adjustments.append("Maintained current balanced trajectory; scheduled progressive check-in in 48 hours.")
+            adaptation_type = "variety_optimization"
+            plan_adjustments.append("Dynamic Variation Protocol applied: refreshed movement angles and tempo pacing.")
+            plan_adjustments.append("Updated exercise order to enhance neuromuscular recruitment and prevent adaptation.")
+            plan_adjustments.append("Adjusted micronutrient profile and antioxidant density to support weekly continuity.")
 
         advice = (
             f"Active Plan Monitor triggered for {profile.name} (Trigger: '{query}').\n"
