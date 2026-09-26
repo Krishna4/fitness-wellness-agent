@@ -948,7 +948,9 @@
         if (response.ok) {
           const res = await response.json();
           const prov = res.llm_trace ? `${res.llm_trace.provider} (${res.llm_trace.model})` : 'GEMINI LITE';
+          const memCount = res.adaptation_history ? res.adaptation_history.length : 1;
           logTerminal(`🤖 <strong>[LLM INVOCATION]</strong> Dynamic adaptation synthesized via <code>${prov}</code>`);
+          logTerminal(`💾 <strong>[PERSISTENT MEMORY]</strong> Saved to disk in <code>fitness_memory.json</code> (Total events: ${memCount})`);
           logTerminal(`✓ <strong>[LLM ADAPTATION RECEIVED]</strong> Intent: <code>${res.intent.toUpperCase()}</code>`);
 
           document.getElementById('coach_chat').innerHTML = `

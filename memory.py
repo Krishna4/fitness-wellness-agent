@@ -16,7 +16,8 @@ class MemoryStore:
         self.session_history: List[Dict[str, str]] = []
         self.data: Dict[str, Any] = {
             "users": {},
-            "progress_logs": {}
+            "progress_logs": {},
+            "adaptation_history": {}
         }
         self.load()
 
@@ -77,6 +78,21 @@ class MemoryStore:
     def get_progress_history(self, user_id: str) -> List[Dict[str, Any]]:
         """Retrieve user progress history."""
         return self.data["progress_logs"].get(user_id, [])
+
+    def append_adaptation(self, user_id: str, entry: Dict[str, Any]) -> None:
+        """Append plan adaptation record to persistent memory."""
+        if "adaptation_history" not in self.data:
+            self.data["adaptation_history"] = {}
+        if user_id not in self.data["adaptation_history"]:
+            self.data["adaptation_history"][user_id] = []
+        self.data["adaptation_history"][user_id].append(entry)
+        self.save()
+
+    def get_adaptation_history(self, user_id: str) -> List[Dict[str, Any]]:
+        """Retrieve all recorded plan adaptations for user."""
+        if "adaptation_history" not in self.data:
+            return []
+        return self.data["adaptation_history"].get(user_id, [])
 
     def record_turn(self, role: str, message: str) -> None:
         """Record conversational turn in ephemeral session."""

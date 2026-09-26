@@ -99,6 +99,7 @@ class AgentWebHandler(SimpleHTTPRequestHandler):
                     "guidance": result.guidance,
                     "safety_warnings": result.safety_warnings,
                     "data": self._serialize(result.data),
+                    "adaptation_history": agent.memory.get_adaptation_history(user_profile.user_id),
                     "llm_trace": {
                         "provider": agent.llm.provider.upper(),
                         "model": active_model,

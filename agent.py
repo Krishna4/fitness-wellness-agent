@@ -119,11 +119,25 @@ class FitnessWellnessAgent:
                 self.memory.update_profile(profile)
                 warnings.append(f"SAFETY ADAPTATION: Registered new limitation '{', '.join(adaptation['new_injuries'])}' in persistent memory.")
 
-            # LLM synthesis for empathetic, adaptive response
+            # Record into Persistent Adaptation Memory Store
+            import time
+            adapt_record = {
+                "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+                "query": query,
+                "adaptation_type": adaptation["adaptation_type"],
+                "adjustments": adaptation["adjustments"],
+                "new_injuries": adaptation.get("new_injuries", [])
+            }
+            self.memory.append_adaptation(profile.user_id, adapt_record)
+
+            # LLM synthesis for empathetic, adaptive response with memory context
+            past_adaps = self.memory.get_adaptation_history(profile.user_id)
+            past_context = f"Previous adaptations on record: {len(past_adaps) - 1} prior events." if len(past_adaps) > 1 else "First real-time plan adaptation event."
             adjustments_str = "; ".join(adaptation["adjustments"])
             prompt = (
                 f"User Feedback: '{query}'. "
                 f"User Profile: {profile.name} (Goal: {profile.fitness_goal}, Current injuries: {profile.injuries}). "
+                f"Memory Context: {past_context}. "
                 f"Adaptation Type: {adaptation['adaptation_type']}. "
                 f"Applied Adjustments: {adjustments_str}. "
                 f"Synthesize an articulate, empathetic, and professional coaching response explaining the adaptations."
