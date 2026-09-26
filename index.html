@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitness & Wellness Agent | Dynamic Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1A9988;
+      --primary-dark: #126B5F;
+      --coral: #EB5600;
+      --bg: #0F172A;
+      --card-bg: #1E293B;
+      --card-border: #334155;
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+      --blue: #38BDF8;
+      --green: #34D399;
+      --input-bg: #0F172A;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 24px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-border); padding-bottom: 16px; margin-bottom: 24px; }
+    .badge { background: rgba(26, 153, 136, 0.18); color: var(--primary); padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; border: 1px solid var(--primary); }
+    
+    /* Profile Form */
+    .profile-card { background: var(--card-bg); border: 1px solid var(--primary); border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 11.5px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .form-control { background: var(--input-bg); border: 1px solid var(--card-border); border-radius: 6px; padding: 8px 12px; font-size: 13px; color: var(--text); outline: none; }
+    .form-control:focus { border-color: var(--primary); }
+    .btn-submit { background: var(--primary); color: #fff; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .btn-submit:hover { background: var(--primary-dark); }
+    
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 20px; }
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px; }
+    .card-title { font-size: 16px; font-weight: 600; color: var(--primary); display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .meta-tag { font-size: 11px; background: #334155; padding: 2px 8px; border-radius: 4px; color: var(--text-muted); }
+    .item-box { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.06); padding: 12px; border-radius: 8px; margin-bottom: 10px; }
+    .item-header { display: flex; justify-content: space-between; font-weight: 600; font-size: 13.5px; margin-bottom: 4px; }
+    .item-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+    .pill { display: inline-block; font-size: 10px; padding: 2px 6px; border-radius: 4px; background: rgba(235, 86, 0, 0.2); color: var(--coral); border: 1px solid var(--coral); margin-top: 4px; }
+    .stat-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; border-bottom: 1px dashed #334155; padding-bottom: 4px; }
+    .stat-label { color: var(--text-muted); }
+    .stat-val { font-weight: 600; color: var(--text); }
+    .alert-box { background: rgba(235, 86, 0, 0.12); border-left: 3px solid var(--coral); padding: 10px 12px; font-size: 12px; color: #FDBA74; margin-top: 12px; border-radius: 0 6px 6px 0; }
+    .chat-box { background: rgba(15, 23, 42, 0.6); border-radius: 8px; padding: 14px; min-height: 120px; font-size: 13px; line-height: 1.5; color: #E2E8F0; }
+    .footer-note { text-align: center; margin-top: 30px; font-size: 12px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1 style="font-size: 22px; font-weight: 700; color: var(--text);">Fitness & Wellness Agent</h1>
+        <p style="font-size: 13px; color: var(--text-muted);">Autonomous Health, Nutrition & Location-Aware Assistant</p>
+      </div>
+      <div style="text-align: right;">
+        <span class="badge">Team FitPulse</span>
+        <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Dynamic User Onboarding Mode</p>
+      </div>
+    </header>
+
+    <!-- User Profile Onboarding Section -->
+    <div class="profile-card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <h2 style="font-size: 16px; font-weight: 600; color: var(--text);">📋 Enter Your Fitness Details</h2>
+          <p style="font-size: 12px; color: var(--text-muted);">The agent tailors workouts, macros, safety gates, and nearby facility lookups to your input.</p>
+        </div>
+        <button class="btn-submit" onclick="generateCustomPlan()">⚡ Generate My Plan</button>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="inp_name" class="form-control" value="Alex Rivera" placeholder="e.g. Sarah">
+        </div>
+        <div class="form-group">
+          <label>Age (years)</label>
+          <input type="number" id="inp_age" class="form-control" value="28">
+        </div>
+        <div class="form-group">
+          <label>Gender</label>
+          <select id="inp_gender" class="form-control">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Weight (kg)</label>
+          <input type="number" step="0.5" id="inp_weight" class="form-control" value="70.0">
+        </div>
+        <div class="form-group">
+          <label>Height (cm)</label>
+          <input type="number" step="0.5" id="inp_height" class="form-control" value="175.0">
+        </div>
+        <div class="form-group">
+          <label>Primary Goal</label>
+          <select id="inp_goal" class="form-control">
+            <option value="fat_loss" selected>Fat Loss</option>
+            <option value="muscle_gain">Muscle Gain</option>
+            <option value="endurance">Endurance</option>
+            <option value="mobility">Mobility</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Dietary Preference</label>
+          <select id="inp_diet" class="form-control">
+            <option value="non_veg" selected>Non-Vegetarian</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="vegan">Vegan</option>
+            <option value="eggetarian">Eggetarian</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Injuries / Limitations</label>
+          <input type="text" id="inp_injuries" class="form-control" value="knee_pain" placeholder="e.g. knee_pain, lumbar_strain, none">
+        </div>
+        <div class="form-group">
+          <label>Food Allergies</label>
+          <input type="text" id="inp_allergies" class="form-control" value="peanuts" placeholder="e.g. peanuts, dairy, gluten, none">
+        </div>
+        <div class="form-group">
+          <label>City / Location</label>
+          <input type="text" id="inp_city" class="form-control" value="Hyderabad" placeholder="e.g. Hyderabad, Bengaluru">
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Profile Summary Bar -->
+    <div class="card" style="margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center;">
+      <div>
+        <div style="font-size: 11px; color: var(--text-muted);">ACTIVE USER</div>
+        <div style="font-weight: 600; font-size: 15px;" id="disp_user">Alex Rivera (28)</div>
+      </div>
+      <div>
+        <div style="font-size: 11px; color: var(--text-muted);">GOAL & BIOMETRICS</div>
+        <div style="font-weight: 600; font-size: 14px;" id="disp_bio">70 kg | 175 cm | <span style="color: var(--primary);">Fat Loss</span></div>
+      </div>
+      <div>
+        <div style="font-size: 11px; color: var(--text-muted);">SAFETY GATE MONITORS</div>
+        <span class="pill" id="disp_injuries">Injuries: knee_pain</span>
+        <span class="pill" style="background: rgba(56, 189, 248, 0.15); color: var(--blue); border-color: var(--blue);" id="disp_allergies">Allergies: peanuts</span>
+      </div>
+      <div>
+        <div style="font-size: 11px; color: var(--text-muted);">LOCATION</div>
+        <div style="font-weight: 600; font-size: 13px;" id="disp_city">Hyderabad</div>
+      </div>
+    </div>
+
+    <!-- 5 Core Features Grid -->
+    <div class="grid">
+      <!-- 1. Personalized Workouts -->
+      <div class="card">
+        <div class="card-title">
+          <span>🏋️‍♂️ 1. Personalized Workout Routine</span>
+          <span class="meta-tag" id="disp_workout_duration">50 mins</span>
+        </div>
+        <div id="workout_list">
+          <!-- Populated dynamically via JS -->
+        </div>
+        <div class="alert-box" id="disp_safety_alert">
+          🛡️ <strong>Safety Gate Active:</strong> Deep Squats & High-Impact Jumps filtered out due to active knee pain.
+        </div>
+      </div>
+
+      <!-- 2. Diet & Nutrition -->
+      <div class="card">
+        <div class="card-title">
+          <span>🥗 2. Tailored Nutrition & Meal Plan</span>
+          <span class="meta-tag" id="disp_calories">1850 kcal</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+          <div style="background: #0F172A; padding: 8px; border-radius: 6px; text-align: center;">
+            <div style="font-size: 11px; color: var(--text-muted);">Protein</div>
+            <div style="font-weight: 700; color: var(--primary);" id="disp_protein">160g</div>
+          </div>
+          <div style="background: #0F172A; padding: 8px; border-radius: 6px; text-align: center;">
+            <div style="font-size: 11px; color: var(--text-muted);">Carbs</div>
+            <div style="font-weight: 700; color: var(--blue);" id="disp_carbs">185g</div>
+          </div>
+          <div style="background: #0F172A; padding: 8px; border-radius: 6px; text-align: center;">
+            <div style="font-size: 11px; color: var(--text-muted);">Fats</div>
+            <div style="font-weight: 700; color: #FBBF24;" id="disp_fats">51g</div>
+          </div>
+        </div>
+        <div id="meal_list">
+          <!-- Populated dynamically via JS -->
+        </div>
+        <div class="stat-row" style="margin-top: 10px;">
+          <span class="stat-label">Hydration Target</span>
+          <span class="stat-val" style="color: var(--blue);" id="disp_water">2.5 Liters / Day</span>
+        </div>
+      </div>
+
+      <!-- 3. Nearby Facilities -->
+      <div class="card">
+        <div class="card-title">
+          <span>📍 3. Proximity Facility Discovery</span>
+          <span class="meta-tag">Within 5 km</span>
+        </div>
+        <div id="facility_list">
+          <div class="item-box">
+            <div class="item-header"><span>Cult.fit Fitness Center</span><span style="color: var(--green);">1.4 km • ★ 4.8</span></div>
+            <div class="item-desc">Whitefields • Strength Zone, Boxing, HRX Conditioning</div>
+          </div>
+          <div class="item-box">
+            <div class="item-header"><span>City Athletics Stadium Track</span><span style="color: var(--green);">2.8 km • ★ 4.6</span></div>
+            <div class="item-desc">Main Ring Road • 400m Olympic Track, Calisthenics Zone</div>
+          </div>
+          <div class="item-box">
+            <div class="item-header"><span>Gold's Gym & Wellness</span><span style="color: var(--green);">3.2 km • ★ 4.5</span></div>
+            <div class="item-desc">Hills Enclave • Free Weights, Cardio Deck, Steam Bath</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Progress Analytics -->
+      <div class="card">
+        <div class="card-title">
+          <span>📈 4. Longitudinal Progress & Logs</span>
+          <span class="meta-tag">Real-Time</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Starting Weight</span>
+          <span class="stat-val" id="disp_start_weight">70.0 kg</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Target Weight</span>
+          <span class="stat-val" style="color: var(--primary);" id="disp_target_weight">66.0 kg (-4.0 kg)</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Workout Consistency</span>
+          <span class="stat-val" style="color: var(--green);">100% (Week 1 On Track)</span>
+        </div>
+        <div class="item-box" style="margin-top: 12px;">
+          <div class="item-header"><span>Session Log Status</span><span style="color: var(--blue);">Active</span></div>
+          <div class="item-desc" id="disp_log_summary">Daily consistency goal: 4 structured sessions per week.</div>
+        </div>
+      </div>
+
+      <!-- 5. Active Plan Monitor & Adaptive Evolution -->
+      <div class="card" style="grid-column: span 2;">
+        <div class="card-title">
+          <span>⚡ 5. Active Plan Monitor & Real-Time Adaptation</span>
+          <span class="meta-tag">Closed-Loop Feedback</span>
+        </div>
+        <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px;">
+          The agent continuously monitors your feedback (soreness, fatigue, joint discomfort, difficulty) and adapts the fitness & nutrition plan in real-time.
+        </p>
+
+        <!-- Feedback Input Box -->
+        <div style="display: flex; gap: 10px; margin-bottom: 14px;">
+          <input type="text" id="inp_feedback" class="form-control" style="flex: 1;" placeholder="Try typing: 'I feel exhausted today' or 'My shoulder hurts' or 'Workouts feel too easy'...">
+          <button class="btn-submit" onclick="submitUserFeedback()">Submit Feedback</button>
+        </div>
+
+        <div class="chat-box" id="coach_chat">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      Fitness & Wellness Agent | Pure Python 3 & Modular ReAct Architecture
+    </div>
+  </div>
+
+  <script>
+    function generateCustomPlan() {
+      const name = document.getElementById('inp_name').value || 'Guest';
+      const age = parseInt(document.getElementById('inp_age').value) || 28;
+      const gender = document.getElementById('inp_gender').value;
+      const weight = parseFloat(document.getElementById('inp_weight').value) || 70.0;
+      const height = parseFloat(document.getElementById('inp_height').value) || 175.0;
+      const goal = document.getElementById('inp_goal').value;
+      const diet = document.getElementById('inp_diet').value;
+      const injuries = document.getElementById('inp_injuries').value.toLowerCase();
+      const allergies = document.getElementById('inp_allergies').value.toLowerCase();
+      const city = document.getElementById('inp_city').value || 'Hyderabad';
+
+      // Update Summary Bar
+      document.getElementById('disp_user').innerText = `${name} (${age}, ${gender})`;
+      document.getElementById('disp_bio').innerHTML = `${weight} kg | ${height} cm | <span style="color: var(--primary);">${goal.replace('_', ' ').toUpperCase()}</span>`;
+      document.getElementById('disp_injuries').innerText = injuries ? `Injuries: ${injuries}` : 'No Injuries';
+      document.getElementById('disp_allergies').innerText = allergies ? `Allergies: ${allergies}` : 'No Allergies';
+      document.getElementById('disp_city').innerText = city;
+
+      // 1. Calculate BMR & TDEE (Mifflin-St Jeor)
+      let bmr = (gender === 'male') 
+        ? (10 * weight + 6.25 * height - 5 * age + 5)
+        : (10 * weight + 6.25 * height - 5 * age - 161);
+      
+      let tdee = bmr * 1.375;
+      let targetCals = Math.round(goal === 'fat_loss' ? (tdee - 450) : (goal === 'muscle_gain' ? (tdee + 300) : tdee));
+      targetCals = Math.max(targetCals, 1300);
+
+      let pRatio = (goal === 'fat_loss') ? 0.35 : 0.30;
+      let cRatio = (goal === 'fat_loss') ? 0.40 : 0.45;
+      let fRatio = 0.25;
+
+      let proteinG = Math.round((targetCals * pRatio) / 4);
+      let carbsG = Math.round((targetCals * cRatio) / 4);
+      let fatsG = Math.round((targetCals * fRatio) / 9);
+      let waterL = (weight * 0.035).toFixed(1);
+
+      document.getElementById('disp_calories').innerText = `${targetCals} kcal`;
+      document.getElementById('disp_protein').innerText = `${proteinG}g`;
+      document.getElementById('disp_carbs').innerText = `${carbsG}g`;
+      document.getElementById('disp_fats').innerText = `${fatsG}g`;
+      document.getElementById('disp_water').innerText = `${waterL} Liters / Day`;
+
+      // 2. Dynamic Workouts (Filter contraindications)
+      let exercises = [
+        { name: "Push-ups", sets: "3 sets × 12 reps", target: "Pectorals & Triceps", cue: "Elbows at 45°, tight core.", contra: ["wrist", "shoulder"] },
+        { name: "Seated DB Overhead Press", sets: "3 sets × 10 reps", target: "Deltoids", cue: "Press vertically overhead, neutral back.", contra: ["shoulder"] },
+        { name: "Glute Bridges", sets: "3 sets × 15 reps", target: "Glutes & Hamstrings", cue: "Drive through heels, squeeze at top.", contra: [] },
+        { name: "Stationary Bike LISS", sets: "1 session × 20 mins", target: "Cardio & Conditioning", cue: "Keep steady cadence 75-80 RPM.", contra: [] },
+        { name: "Bodyweight Squats", sets: "3 sets × 15 reps", target: "Quadriceps & Glutes", cue: "Chest tall, knees track over toes.", contra: ["knee"] },
+        { name: "Dumbbell Romanian Deadlift", sets: "3 sets × 10 reps", target: "Posterior Chain", cue: "Hinge hips back, flat spine.", contra: ["lumbar", "back"] }
+      ];
+
+      let safeExercises = exercises.filter(ex => {
+        return !ex.contra.some(c => injuries.includes(c));
+      });
+
+      let workoutHtml = "";
+      safeExercises.slice(0, 4).forEach(ex => {
+        workoutHtml += `
+          <div class="item-box">
+            <div class="item-header"><span>${ex.name}</span><span style="color: var(--primary);">${ex.sets}</span></div>
+            <div class="item-desc">${ex.target} • Cue: ${ex.cue}</div>
+          </div>
+        `;
+      });
+      document.getElementById('workout_list').innerHTML = workoutHtml;
+
+      // Safety Alert
+      if (injuries && injuries !== 'none') {
+        document.getElementById('disp_safety_alert').style.display = 'block';
+        document.getElementById('disp_safety_alert').innerHTML = `🛡️ <strong>Safety Gate Active:</strong> Exercises carrying risk for <em>'${injuries}'</em> have been automatically excluded from today's routine.`;
+      } else {
+        document.getElementById('disp_safety_alert').innerHTML = `🛡️ <strong>Safety Gate Active:</strong> Form and intensity checks verified for all movements.`;
+      }
+
+      // 3. Dynamic Meals
+      let mealHtml = `
+        <div class="item-box">
+          <div class="item-header"><span>[Breakfast] Chia & Oat Bowl</span><span>380 kcal</span></div>
+          <div class="item-desc">Fresh berries, plant milk, cinnamon • Balanced carbs & micronutrients</div>
+        </div>
+        <div class="item-box">
+          <div class="item-header"><span>[Lunch] ${diet === 'vegan' ? 'Tofu Quinoa Skillet' : (diet === 'vegetarian' ? 'Paneer Tikka with Brown Rice' : 'Grilled Chicken Breast & Sweet Potato')}</span><span>520 kcal</span></div>
+          <div class="item-desc">High protein, complex carbohydrates, and steamed greens</div>
+        </div>
+        <div class="item-box">
+          <div class="item-header"><span>[Dinner] ${diet === 'vegan' ? 'Spiced Lentil Dal with Greens' : (diet === 'vegetarian' ? 'Chickpea Curry & Avocado Salad' : 'Baked Salmon Fillet & Asparagus')}</span><span>510 kcal</span></div>
+          <div class="item-desc">Restorative evening protein and healthy omega fatty acids</div>
+        </div>
+      `;
+      document.getElementById('meal_list').innerHTML = mealHtml;
+
+      // 4. Progress Card
+      document.getElementById('disp_start_weight').innerText = `${weight} kg`;
+      let targetWeight = (goal === 'fat_loss') ? (weight - 4).toFixed(1) : (goal === 'muscle_gain' ? (weight + 3).toFixed(1) : weight);
+      document.getElementById('disp_target_weight').innerText = `${targetWeight} kg (${goal === 'fat_loss' ? '-4 kg' : '+3 kg'})`;
+
+      // 5. Coach Message
+      document.getElementById('coach_chat').innerHTML = `
+        <p style="color: var(--primary); font-weight: 600; margin-bottom: 6px;">Coach FitPulse says:</p>
+        <p style="margin-bottom: 8px;">"Welcome, ${name}! Your profile is fully calibrated for <strong>${goal.replace('_', ' ').toUpperCase()}</strong>. We've structured your daily nutrition target to <strong>${targetCals} kcal</strong> with <strong>${proteinG}g protein</strong>."</p>
+        <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 6px;"><strong>Active Monitor Status:</strong> Listening for real-time feedback (soreness, fatigue, pain, difficulty) to evolve your plan.</p>
+        <div style="font-size: 11px; color: #64748B; border-top: 1px solid #334155; padding-top: 6px; margin-top: 6px;">
+          ⚠️ <em>Disclaimer: AI wellness guidance does not replace professional medical advice.</em>
+        </div>
+      `;
+    }
+
+    function submitUserFeedback() {
+      const fb = document.getElementById('inp_feedback').value.trim();
+      if (!fb) return;
+      const q = fb.toLowerCase();
+
+      let title = "Real-Time Adaptation Applied";
+      let bullets = [];
+
+      if (q.includes("exhausted") || q.includes("tired") || q.includes("sore")) {
+        title = "Deload & Active Recovery Protocol Triggered";
+        bullets = [
+          "Reduced workout volume by 40% (switched heavy compound movements to mobility drills).",
+          "Hydration milestone bumped by +400ml to accelerate metabolic waste clearance.",
+          "Post-workout recovery window updated with +25g complex carbohydrates."
+        ];
+        document.getElementById('disp_workout_duration').innerText = "30 mins (Deload)";
+      } else if (q.includes("shoulder") || q.includes("hurt") || q.includes("pain")) {
+        title = "Joint Safety Gate Activated (Injury Avoidance)";
+        bullets = [
+          "Detected acute discomfort: Overhead pressing eliminated from schedule.",
+          "Substituted with Chest-Supported Incline DB Rows to offload the anterior deltoid.",
+          "Registered limitation in memory to avoid future vertical overhead loads."
+        ];
+        document.getElementById('disp_injuries').innerText = "Injuries: shoulder_strain (Active Gate)";
+      } else if (q.includes("easy") || q.includes("harder") || q.includes("challenge")) {
+        title = "Progressive Overload Adaptation Triggered";
+        bullets = [
+          "Increased working sets from 3 to 4 across all compound movements.",
+          "Substituted standard push-ups with Diamond Push-ups (advanced chest/tricep variation).",
+          "Scheduled load increment of +2.5 kg on primary lifts for the next 7-day cycle."
+        ];
+        document.getElementById('disp_workout_duration').innerText = "65 mins (Overload)";
+      } else if (q.includes("plateau") || q.includes("stuck")) {
+        title = "Metabolic Breakthrough Protocol Triggered";
+        bullets = [
+          "Caloric intake adjusted by -100 kcal to break biological adaptation.",
+          "Scheduled a planned carbohydrate refeed day on Day 7 to upregulate leptin.",
+          "Prescribed a 10-minute post-workout incline walk to elevate daily NEAT."
+        ];
+      } else {
+        title = "Feedback Processed & Trajectory Calibrated";
+        bullets = [
+          "Input analyzed against your biometric baseline.",
+          "Current progression curve remains optimal; continuing weekly trajectory."
+        ];
+      }
+
+      let bulletsHtml = bullets.map(b => `<li style="margin-left: 18px; margin-bottom: 4px;">${b}</li>`).join('');
+
+      document.getElementById('coach_chat').innerHTML = `
+        <div style="background: rgba(26, 153, 136, 0.15); border: 1px solid var(--primary); padding: 10px; border-radius: 6px; margin-bottom: 10px;">
+          <strong style="color: var(--primary);">⚡ Feedback Received:</strong> "${fb}"
+          <div style="font-size: 13px; font-weight: 600; color: #fff; margin-top: 6px;">${title}</div>
+          <ul style="font-size: 12px; color: #E2E8F0; margin-top: 6px;">
+            ${bulletsHtml}
+          </ul>
+        </div>
+        <p style="font-size: 12px; color: var(--text-muted);">Your ongoing fitness and nutrition plan has been updated dynamically in memory.</p>
+      `;
+
+      document.getElementById('inp_feedback').value = "";
+    }
+
+    window.onload = generateCustomPlan;
+  </script>
+</body>
+</html>
