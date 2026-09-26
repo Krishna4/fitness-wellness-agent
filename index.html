@@ -257,8 +257,10 @@
       </div>
     </div>
 
-    <!-- Active Profile Summary Bar (Horizontal Inline Strip) -->
-    <div class="summary-strip">
+    <!-- Results & Adaptive Plan Section (Hidden until 'Generate My Plan' is clicked) -->
+    <div id="results_section" style="display: none;">
+      <!-- Active Profile Summary Bar (Horizontal Inline Strip) -->
+      <div class="summary-strip">
       <div class="summary-item">
         <span class="summary-label">Active User</span>
         <span class="summary-val" id="disp_user">Alex Rivera (28, male)</span>
@@ -410,6 +412,7 @@
         </div>
       </div>
     </div>
+  </div> <!-- End #results_section -->
 
     <!-- Real-Time System & LLM Execution Console -->
     <div class="terminal-card">
@@ -645,6 +648,13 @@
     async function generateCustomPlan() {
       const profile = getFormProfile();
       logTerminal(`User profile submitted for <strong>${profile.name}</strong> (${profile.fitness_goal}, ${profile.location_city}).`);
+
+      // Reveal the results section on click
+      const resultsEl = document.getElementById('results_section');
+      if (resultsEl) {
+        resultsEl.style.display = 'block';
+        resultsEl.scrollIntoView({ behavior: 'smooth' });
+      }
 
       // Update Summary Bar
       document.getElementById('disp_user').innerText = `${profile.name} (${profile.age}, ${profile.gender})`;
@@ -1027,7 +1037,9 @@
       document.getElementById('inp_feedback').value = "";
     }
 
-    window.onload = generateCustomPlan;
+    window.onload = () => {
+      logTerminal("Agent ready. Configure your fitness profile attributes above and click <strong>'⚡ Generate My Plan'</strong> to generate recommendations.");
+    };
   </script>
 </body>
 </html>
