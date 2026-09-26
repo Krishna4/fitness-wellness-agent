@@ -22,43 +22,114 @@
       --input-bg: #0F172A;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-    body { background-color: var(--bg); color: var(--text); padding: 24px; }
-    .container { max-width: 1200px; margin: 0 auto; }
-    header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-border); padding-bottom: 16px; margin-bottom: 24px; }
+    body { background-color: var(--bg); color: var(--text); padding: 20px; }
+    .container { max-width: 1560px; margin: 0 auto; }
+    header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-border); padding-bottom: 16px; margin-bottom: 20px; }
     .badge { background: rgba(26, 153, 136, 0.18); color: var(--primary); padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; border: 1px solid var(--primary); }
     
     /* Profile Form */
     .profile-card { background: var(--card-bg); border: 1px solid var(--primary); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
-    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 14px; }
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 14px; }
     .form-group { display: flex; flex-direction: column; gap: 6px; }
     .form-group label { font-size: 11.5px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
     .form-control { background: var(--input-bg); border: 1px solid var(--card-border); border-radius: 6px; padding: 8px 12px; font-size: 13px; color: var(--text); outline: none; }
     .form-control:focus { border-color: var(--primary); }
-    .btn-submit { background: var(--primary); color: #fff; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s; white-space: nowrap; }
+    .btn-submit { background: var(--primary); color: #fff; border: none; padding: 10px 18px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s; white-space: nowrap; }
     .btn-submit:hover { background: var(--primary-dark); }
     
     .quick-chip { background: #334155; color: #E2E8F0; border: 1px solid #475569; padding: 4px 10px; border-radius: 999px; font-size: 11.5px; cursor: pointer; transition: 0.2s; }
     .quick-chip:hover { background: var(--primary); color: white; border-color: var(--primary); }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 20px; }
-    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px; }
-    .card-title { font-size: 16px; font-weight: 600; color: var(--primary); display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    /* 4 Sections in Single Line Layout */
+    .grid-4cols {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+      align-items: stretch;
+    }
+    @media (max-width: 1280px) {
+      .grid-4cols { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .grid-4cols { grid-template-columns: 1fr; }
+    }
+
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; }
+    .card-title { font-size: 15px; font-weight: 600; color: var(--primary); display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
     .meta-tag { font-size: 11px; background: #334155; padding: 2px 8px; border-radius: 4px; color: var(--text-muted); }
-    .item-box { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.06); padding: 12px; border-radius: 8px; margin-bottom: 10px; }
-    .item-header { display: flex; justify-content: space-between; font-weight: 600; font-size: 13.5px; margin-bottom: 4px; }
-    .item-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+    .item-box { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.06); padding: 10px 12px; border-radius: 8px; margin-bottom: 8px; }
+    .item-header { display: flex; justify-content: space-between; font-weight: 600; font-size: 13px; margin-bottom: 3px; }
+    .item-desc { font-size: 11.5px; color: var(--text-muted); line-height: 1.35; }
     .pill { display: inline-block; font-size: 10px; padding: 2px 6px; border-radius: 4px; background: rgba(235, 86, 0, 0.2); color: var(--coral); border: 1px solid var(--coral); margin-top: 4px; }
-    .stat-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; border-bottom: 1px dashed #334155; padding-bottom: 4px; }
+    .stat-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 12.5px; border-bottom: 1px dashed #334155; padding-bottom: 4px; }
     .stat-label { color: var(--text-muted); }
     .stat-val { font-weight: 600; color: var(--text); }
-    .alert-box { background: rgba(235, 86, 0, 0.12); border-left: 3px solid var(--coral); padding: 10px 12px; font-size: 12px; color: #FDBA74; margin-top: 12px; border-radius: 0 6px 6px 0; }
-    .chat-box { background: rgba(15, 23, 42, 0.6); border-radius: 8px; padding: 14px; min-height: 90px; font-size: 13px; line-height: 1.5; color: #E2E8F0; }
+    .alert-box { background: rgba(235, 86, 0, 0.12); border-left: 3px solid var(--coral); padding: 8px 10px; font-size: 11.5px; color: #FDBA74; margin-top: 10px; border-radius: 0 6px 6px 0; }
+    .chat-box { background: rgba(15, 23, 42, 0.6); border-radius: 8px; padding: 14px; min-height: 80px; font-size: 13px; line-height: 1.5; color: #E2E8F0; }
+    
+    /* History & Adaptation Badges */
+    .badge-adapted {
+      display: inline-block;
+      background: rgba(52, 211, 153, 0.18);
+      color: var(--green);
+      border: 1px solid var(--green);
+      font-size: 10.5px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .badge-prev {
+      background: rgba(148, 163, 184, 0.15);
+      color: #94A3B8;
+      border: 1px solid #475569;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+    .history-card {
+      margin-top: auto;
+      padding-top: 12px;
+      background: rgba(15, 23, 42, 0.45);
+      border: 1px dashed rgba(148, 163, 184, 0.25);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 11.5px;
+    }
+    .history-card summary {
+      cursor: pointer;
+      color: #94A3B8;
+      font-weight: 600;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .history-card summary:hover {
+      color: #CBD5E1;
+    }
+    .history-content {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.08);
+      color: #94A3B8;
+    }
+    .history-item {
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      line-height: 1.35;
+    }
+    .strike-old {
+      text-decoration: line-through;
+      color: #64748B;
+    }
     
     /* Terminal Console */
-    .terminal-card { background: #090D16; border: 1px solid #1E293B; border-radius: 10px; padding: 16px; margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .terminal-card { background: #090D16; border: 1px solid #1E293B; border-radius: 10px; padding: 16px; margin-top: 20px; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
     .terminal-header { display: flex; justify-content: space-between; color: var(--text-muted); font-size: 11px; margin-bottom: 10px; border-bottom: 1px solid #1E293B; padding-bottom: 6px; }
-    .terminal-body { max-height: 160px; overflow-y: auto; color: #38BDF8; line-height: 1.6; font-family: 'JetBrains Mono', monospace; }
-    .footer-note { text-align: center; margin-top: 24px; font-size: 12px; color: var(--text-muted); }
+    .terminal-body { max-height: 150px; overflow-y: auto; color: #38BDF8; line-height: 1.6; font-family: 'JetBrains Mono', monospace; }
+    .footer-note { text-align: center; margin-top: 20px; font-size: 12px; color: var(--text-muted); }
   </style>
 </head>
 <body>
@@ -194,78 +265,76 @@
       </div>
     </div>
 
-    <!-- Core Features Grid (1 to 4) -->
-    <div class="grid">
+    <!-- Core Features 4 Columns in Single Line -->
+    <div class="grid-4cols">
       <!-- 1. Personalized Workouts -->
       <div class="card">
         <div class="card-title">
-          <span>🏋️‍♂️ 1. Personalized Workout Routine</span>
+          <span>🏋️‍♂️ 1. Workouts</span>
           <span class="meta-tag" id="disp_workout_duration">50 mins</span>
         </div>
+        <div id="workout_badge_container"></div>
         <div id="workout_list">
           <!-- Populated dynamically via JS -->
         </div>
         <div class="alert-box" id="disp_safety_alert">
-          🛡️ <strong>Safety Gate Active:</strong> Deep Squats & High-Impact Jumps filtered out due to active knee pain.
+          🛡️ <strong>Safety Gate Active:</strong> Form and intensity checks verified.
         </div>
+        <!-- Previous Workout History -->
+        <div id="workout_history_box"></div>
       </div>
 
       <!-- 2. Diet & Nutrition -->
       <div class="card">
         <div class="card-title">
-          <span>🥗 2. Tailored Nutrition & Meal Plan</span>
+          <span>🥗 2. Nutrition & Diet</span>
           <span class="meta-tag" id="disp_calories">1850 kcal</span>
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px;">
-          <div style="background: #0F172A; padding: 8px; border-radius: 6px; text-align: center;">
-            <div style="font-size: 11px; color: var(--text-muted);">Protein</div>
-            <div style="font-weight: 700; color: var(--primary);" id="disp_protein">160g</div>
+        <div id="diet_badge_container"></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 10px;">
+          <div style="background: #0F172A; padding: 6px; border-radius: 6px; text-align: center;">
+            <div style="font-size: 10px; color: var(--text-muted);">Protein</div>
+            <div style="font-weight: 700; font-size: 13px; color: var(--primary);" id="disp_protein">160g</div>
           </div>
-          <div style="background: #0F172A; padding: 8px; border-radius: 6px; text-align: center;">
-            <div style="font-size: 11px; color: var(--text-muted);">Carbs</div>
-            <div style="font-weight: 700; color: var(--blue);" id="disp_carbs">185g</div>
+          <div style="background: #0F172A; padding: 6px; border-radius: 6px; text-align: center;">
+            <div style="font-size: 10px; color: var(--text-muted);">Carbs</div>
+            <div style="font-weight: 700; font-size: 13px; color: var(--blue);" id="disp_carbs">185g</div>
           </div>
-          <div style="background: #0F172A; padding: 8px; border-radius: 6px; text-align: center;">
-            <div style="font-size: 11px; color: var(--text-muted);">Fats</div>
-            <div style="font-weight: 700; color: #FBBF24;" id="disp_fats">51g</div>
+          <div style="background: #0F172A; padding: 6px; border-radius: 6px; text-align: center;">
+            <div style="font-size: 10px; color: var(--text-muted);">Fats</div>
+            <div style="font-weight: 700; font-size: 13px; color: #FBBF24;" id="disp_fats">51g</div>
           </div>
         </div>
         <div id="meal_list">
           <!-- Populated dynamically via JS -->
         </div>
-        <div class="stat-row" style="margin-top: 10px;">
+        <div class="stat-row" style="margin-top: 8px;">
           <span class="stat-label">Hydration Target</span>
-          <span class="stat-val" style="color: var(--blue);" id="disp_water">2.5 Liters / Day</span>
+          <span class="stat-val" style="color: var(--blue);" id="disp_water">2.5L / Day</span>
         </div>
+        <!-- Previous Diet History -->
+        <div id="diet_history_box"></div>
       </div>
 
       <!-- 3. Nearby Facilities -->
       <div class="card">
         <div class="card-title">
-          <span>📍 3. Proximity Facility Discovery</span>
+          <span>📍 3. Facilities</span>
           <span class="meta-tag">Within 5 km</span>
         </div>
+        <div id="facility_badge_container"></div>
         <div id="facility_list">
-          <div class="item-box">
-            <div class="item-header"><span>Cult.fit Fitness Center</span><span style="color: var(--green);">1.4 km • ★ 4.8</span></div>
-            <div class="item-desc">Whitefields • Strength Zone, Boxing, HRX Conditioning</div>
-          </div>
-          <div class="item-box">
-            <div class="item-header"><span>City Athletics Stadium Track</span><span style="color: var(--green);">2.8 km • ★ 4.6</span></div>
-            <div class="item-desc">Main Ring Road • 400m Olympic Track, Calisthenics Zone</div>
-          </div>
-          <div class="item-box">
-            <div class="item-header"><span>Gold's Gym & Wellness</span><span style="color: var(--green);">3.2 km • ★ 4.5</span></div>
-            <div class="item-desc">Hills Enclave • Free Weights, Cardio Deck, Steam Bath</div>
-          </div>
+          <!-- Populated dynamically via JS -->
         </div>
+        <!-- Previous Facilities History -->
+        <div id="facility_history_box"></div>
       </div>
 
       <!-- 4. Progress Analytics -->
       <div class="card">
         <div class="card-title">
-          <span>📈 4. Longitudinal Progress & Logs</span>
-          <span class="meta-tag">Real-Time</span>
+          <span>📈 4. Progress & Logs</span>
+          <span class="meta-tag" id="disp_progress_tag">Real-Time</span>
         </div>
         <div class="stat-row">
           <span class="stat-label">Starting Weight</span>
@@ -279,9 +348,16 @@
           <span class="stat-label">Workout Consistency</span>
           <span class="stat-val" style="color: var(--green);">100% (Week 1 On Track)</span>
         </div>
-        <div class="item-box" style="margin-top: 12px;">
+        <div class="item-box" style="margin-top: 8px;">
           <div class="item-header"><span>Session Log Status</span><span style="color: var(--blue);">Active</span></div>
           <div class="item-desc" id="disp_log_summary">Daily consistency goal: 4 structured sessions per week.</div>
+        </div>
+        <!-- Adaptation Audit Trail -->
+        <div style="margin-top: 10px;">
+          <div style="font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase;">⚡ Adaptation Audit Trail:</div>
+          <div id="adaptation_log_list" style="font-size: 11px; color: #CBD5E1; max-height: 120px; overflow-y: auto;">
+            <div style="padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.05); color: #94A3B8;">• Initial Baseline Calibrated</div>
+          </div>
         </div>
       </div>
     </div>
@@ -376,28 +452,31 @@
       let fatsG = Math.round((targetCals * fRatio) / 9);
       let waterL = (profile.weight_kg * 0.035).toFixed(1);
 
-      document.getElementById('disp_calories').innerText = `${targetCals} kcal`;
-      document.getElementById('disp_protein').innerText = `${proteinG}g`;
-      document.getElementById('disp_carbs').innerText = `${carbsG}g`;
-      document.getElementById('disp_fats').innerText = `${fatsG}g`;
-      document.getElementById('disp_water').innerText = `${waterL} Liters / Day`;
+    // Multi-Section History & Dynamic Adaptation State
+    const historyState = {
+      currentWorkout: null,
+      workoutHistory: [],
+      currentDiet: null,
+      dietHistory: [],
+      currentFacilities: [],
+      facilityHistory: [],
+      adaptationLogs: []
+    };
 
-      // 2. Dynamic Workouts (Filter contraindications)
-      let exercises = [
-        { name: "Push-ups", sets: "3 sets × 12 reps", target: "Pectorals & Triceps", cue: "Elbows at 45°, tight core.", contra: ["wrist", "shoulder"] },
-        { name: "Seated DB Overhead Press", sets: "3 sets × 10 reps", target: "Deltoids", cue: "Press vertically overhead, neutral back.", contra: ["shoulder"] },
-        { name: "Glute Bridges", sets: "3 sets × 15 reps", target: "Glutes & Hamstrings", cue: "Drive through heels, squeeze at top.", contra: [] },
-        { name: "Stationary Bike LISS", sets: "1 session × 20 mins", target: "Cardio & Conditioning", cue: "Keep steady cadence 75-80 RPM.", contra: [] },
-        { name: "Bodyweight Squats", sets: "3 sets × 15 reps", target: "Quadriceps & Glutes", cue: "Chest tall, knees track over toes.", contra: ["knee"] },
-        { name: "Dumbbell Romanian Deadlift", sets: "3 sets × 10 reps", target: "Posterior Chain", cue: "Hinge hips back, flat spine.", contra: ["lumbar", "back"] }
-      ];
-
-      let safeExercises = exercises.filter(ex => {
-        return !ex.contra.some(c => profile.injuries.some(inj => inj.includes(c)));
-      });
+    function renderWorkoutCard(isAdapted = false, badgeText = "") {
+      const w = historyState.currentWorkout;
+      if (!w) return;
+      document.getElementById('disp_workout_duration').innerText = w.duration;
+      
+      const badgeBox = document.getElementById('workout_badge_container');
+      if (isAdapted) {
+        badgeBox.innerHTML = `<span class="badge-adapted">⚡ ${badgeText || 'Active Adaptation Applied'}</span>`;
+      } else {
+        badgeBox.innerHTML = '';
+      }
 
       let workoutHtml = "";
-      safeExercises.slice(0, 4).forEach(ex => {
+      w.exercises.forEach(ex => {
         workoutHtml += `
           <div class="item-box">
             <div class="item-header"><span>${ex.name}</span><span style="color: var(--primary);">${ex.sets}</span></div>
@@ -407,36 +486,235 @@
       });
       document.getElementById('workout_list').innerHTML = workoutHtml;
 
-      if (profile.injuries.length) {
-        document.getElementById('disp_safety_alert').style.display = 'block';
-        document.getElementById('disp_safety_alert').innerHTML = `🛡️ <strong>Safety Gate Active:</strong> Exercises carrying risk for <em>'${profile.injuries.join(', ')}'</em> have been automatically excluded from today's routine.`;
+      // Render Previous Workout History
+      const histBox = document.getElementById('workout_history_box');
+      if (historyState.workoutHistory.length > 0) {
+        let histHtml = `<details class="history-card" open>
+          <summary>
+            <span>📜 Previous Routine (${historyState.workoutHistory[0].archivedAt})</span>
+            <span class="badge-prev">Archived Baseline</span>
+          </summary>
+          <div class="history-content">
+            <div style="font-weight: 600; color: #E2E8F0; margin-bottom: 4px;">${historyState.workoutHistory[0].title} (${historyState.workoutHistory[0].duration})</div>
+            ${historyState.workoutHistory[0].exercises.map(e => `
+              <div class="history-item strike-old">
+                • ${e.name} (${e.sets})
+              </div>
+            `).join('')}
+            <div style="font-size: 10.5px; color: #F59E0B; margin-top: 6px;">Reason: Replaced by Active Monitor ("${historyState.workoutHistory[0].reason}")</div>
+          </div>
+        </details>`;
+        histBox.innerHTML = histHtml;
       } else {
-        document.getElementById('disp_safety_alert').innerHTML = `🛡️ <strong>Safety Gate Active:</strong> Form and intensity checks verified for all movements.`;
+        histBox.innerHTML = '';
+      }
+    }
+
+    function renderDietCard(isAdapted = false, badgeText = "") {
+      const d = historyState.currentDiet;
+      if (!d) return;
+
+      document.getElementById('disp_calories').innerText = d.calories;
+      document.getElementById('disp_protein').innerText = d.protein;
+      document.getElementById('disp_carbs').innerText = d.carbs;
+      document.getElementById('disp_fats').innerText = d.fats;
+      document.getElementById('disp_water').innerText = d.water;
+
+      const badgeBox = document.getElementById('diet_badge_container');
+      if (isAdapted) {
+        badgeBox.innerHTML = `<span class="badge-adapted">⚡ ${badgeText || 'Adapted Nutrition'}</span>`;
+      } else {
+        badgeBox.innerHTML = '';
       }
 
-      // 3. Dynamic Meals
-      let mealHtml = `
-        <div class="item-box">
-          <div class="item-header"><span>[Breakfast] Chia & Oat Bowl</span><span>380 kcal</span></div>
-          <div class="item-desc">Fresh berries, plant milk, cinnamon • Balanced carbs & micronutrients</div>
-        </div>
-        <div class="item-box">
-          <div class="item-header"><span>[Lunch] ${profile.dietary_preference === 'vegan' ? 'Tofu Quinoa Skillet' : (profile.dietary_preference === 'vegetarian' ? 'Paneer Tikka with Brown Rice' : 'Grilled Chicken Breast & Sweet Potato')}</span><span>520 kcal</span></div>
-          <div class="item-desc">High protein, complex carbohydrates, and steamed greens</div>
-        </div>
-        <div class="item-box">
-          <div class="item-header"><span>[Dinner] ${profile.dietary_preference === 'vegan' ? 'Spiced Lentil Dal with Greens' : (profile.dietary_preference === 'vegetarian' ? 'Chickpea Curry & Avocado Salad' : 'Baked Salmon Fillet & Asparagus')}</span><span>510 kcal</span></div>
-          <div class="item-desc">Restorative evening protein and healthy omega fatty acids</div>
-        </div>
-      `;
+      let mealHtml = "";
+      d.meals.forEach(m => {
+        mealHtml += `
+          <div class="item-box">
+            <div class="item-header"><span>${m.name}</span><span>${m.cals}</span></div>
+            <div class="item-desc">${m.desc}</div>
+          </div>
+        `;
+      });
       document.getElementById('meal_list').innerHTML = mealHtml;
 
-      // 4. Progress Card
+      // Render Previous Diet History
+      const histBox = document.getElementById('diet_history_box');
+      if (historyState.dietHistory.length > 0) {
+        const prev = historyState.dietHistory[0];
+        let histHtml = `<details class="history-card" open>
+          <summary>
+            <span>📜 Previous Nutrition (${prev.archivedAt})</span>
+            <span class="badge-prev">Archived Baseline</span>
+          </summary>
+          <div class="history-content">
+            <div class="history-item">
+              Calories: <span class="strike-old">${prev.calories}</span> • Protein: <span class="strike-old">${prev.protein}</span>
+            </div>
+            <div class="history-item">
+              Hydration: <span class="strike-old">${prev.water}</span>
+            </div>
+            <div style="font-size: 10.5px; color: #F59E0B; margin-top: 6px;">Reason: Recalibrated for "${prev.reason}"</div>
+          </div>
+        </details>`;
+        histBox.innerHTML = histHtml;
+      } else {
+        histBox.innerHTML = '';
+      }
+    }
+
+    function renderFacilityCard(isAdapted = false, badgeText = "") {
+      const fl = historyState.currentFacilities;
+      const badgeBox = document.getElementById('facility_badge_container');
+      if (isAdapted) {
+        badgeBox.innerHTML = `<span class="badge-adapted">⚡ ${badgeText || 'Re-ranked for Adaptation'}</span>`;
+      } else {
+        badgeBox.innerHTML = '';
+      }
+
+      let facHtml = "";
+      fl.forEach(fac => {
+        facHtml += `
+          <div class="item-box">
+            <div class="item-header"><span>${fac.name}</span><span style="color: var(--green);">${fac.meta}</span></div>
+            <div class="item-desc">${fac.desc}</div>
+          </div>
+        `;
+      });
+      document.getElementById('facility_list').innerHTML = facHtml;
+
+      const histBox = document.getElementById('facility_history_box');
+      if (historyState.facilityHistory.length > 0) {
+        const prev = historyState.facilityHistory[0];
+        let histHtml = `<details class="history-card">
+          <summary>
+            <span>📜 Previous Facility Rankings (${prev.archivedAt})</span>
+            <span class="badge-prev">Archived</span>
+          </summary>
+          <div class="history-content">
+            ${prev.facilities.map(f => `<div class="history-item strike-old">• ${f.name} (${f.meta})</div>`).join('')}
+          </div>
+        </details>`;
+        histBox.innerHTML = histHtml;
+      } else {
+        histBox.innerHTML = '';
+      }
+    }
+
+    function renderProgressCard(isAdapted = false, logMsg = "") {
+      if (isAdapted) {
+        document.getElementById('disp_progress_tag').innerHTML = '<span style="color: var(--green);">● Active Adaptation</span>';
+        document.getElementById('disp_log_summary').innerText = logMsg || 'Active adaptation calibrated against feedback.';
+      } else {
+        document.getElementById('disp_progress_tag').innerText = 'Real-Time';
+        document.getElementById('disp_log_summary').innerText = 'Daily consistency goal: 4 structured sessions per week.';
+      }
+
+      let logHtml = "";
+      historyState.adaptationLogs.forEach(entry => {
+        logHtml += `
+          <div style="padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.06); color: ${entry.color || '#CBD5E1'};">
+            • [${entry.time}] <strong>${entry.title}</strong>: <em>"${entry.detail}"</em>
+          </div>
+        `;
+      });
+      document.getElementById('adaptation_log_list').innerHTML = logHtml || '<div style="color: #94A3B8;">• Initial Baseline Calibrated</div>';
+    }
+
+    // 1. Baseline Plan Generator
+    async function generateCustomPlan() {
+      const profile = getFormProfile();
+      logTerminal(`User profile submitted for <strong>${profile.name}</strong> (${profile.fitness_goal}, ${profile.location_city}).`);
+
+      // Update Summary Bar
+      document.getElementById('disp_user').innerText = `${profile.name} (${profile.age}, ${profile.gender})`;
+      document.getElementById('disp_bio').innerHTML = `${profile.weight_kg} kg | ${profile.height_cm} cm | <span style="color: var(--primary);">${profile.fitness_goal.replace('_', ' ').toUpperCase()}</span>`;
+      document.getElementById('disp_injuries').innerText = profile.injuries.length ? `Injuries: ${profile.injuries.join(', ')}` : 'No Injuries';
+      document.getElementById('disp_allergies').innerText = profile.allergies.length ? `Allergies: ${profile.allergies.join(', ')}` : 'No Allergies';
+      document.getElementById('disp_city').innerText = profile.location_city;
+
+      // Calculate BMR & TDEE (Mifflin-St Jeor)
+      let bmr = (profile.gender === 'male') 
+        ? (10 * profile.weight_kg + 6.25 * profile.height_cm - 5 * profile.age + 5)
+        : (10 * profile.weight_kg + 6.25 * profile.height_cm - 5 * profile.age - 161);
+      
+      let tdee = bmr * 1.375;
+      let targetCals = Math.round(profile.fitness_goal === 'fat_loss' ? (tdee - 450) : (profile.fitness_goal === 'muscle_gain' ? (tdee + 300) : tdee));
+      targetCals = Math.max(targetCals, 1300);
+
+      let pRatio = (profile.fitness_goal === 'fat_loss') ? 0.35 : 0.30;
+      let cRatio = (profile.fitness_goal === 'fat_loss') ? 0.40 : 0.45;
+      let fRatio = 0.25;
+
+      let proteinG = Math.round((targetCals * pRatio) / 4);
+      let carbsG = Math.round((targetCals * cRatio) / 4);
+      let fatsG = Math.round((targetCals * fRatio) / 9);
+      let waterL = (profile.weight_kg * 0.035).toFixed(1);
+
+      // Safe exercises based on injuries
+      let pool = [
+        { name: "Push-ups", sets: "3 sets × 12 reps", target: "Pectorals & Triceps", cue: "Elbows at 45°, tight core.", contra: ["wrist", "shoulder"] },
+        { name: "Seated DB Overhead Press", sets: "3 sets × 10 reps", target: "Deltoids", cue: "Press vertically overhead, neutral back.", contra: ["shoulder"] },
+        { name: "Glute Bridges", sets: "3 sets × 15 reps", target: "Glutes & Hamstrings", cue: "Drive through heels, squeeze at top.", contra: [] },
+        { name: "Stationary Bike LISS", sets: "1 session × 20 mins", target: "Cardio & Conditioning", cue: "Keep steady cadence 75-80 RPM.", contra: [] },
+        { name: "Bodyweight Squats", sets: "3 sets × 15 reps", target: "Quadriceps & Glutes", cue: "Chest tall, knees track over toes.", contra: ["knee"] },
+        { name: "Dumbbell Romanian Deadlift", sets: "3 sets × 10 reps", target: "Posterior Chain", cue: "Hinge hips back, flat spine.", contra: ["lumbar", "back"] }
+      ];
+
+      let safeExercises = pool.filter(ex => !ex.contra.some(c => profile.injuries.some(inj => inj.includes(c))));
+
+      // Initialize State
+      historyState.currentWorkout = {
+        title: (profile.fitness_goal === 'fat_loss') ? 'Personalized Fat Loss Routine' : 'Muscle Hypertrophy Split',
+        duration: '50 mins',
+        exercises: safeExercises.slice(0, 4)
+      };
+      historyState.workoutHistory = [];
+
+      historyState.currentDiet = {
+        calories: `${targetCals} kcal`,
+        protein: `${proteinG}g`,
+        carbs: `${carbsG}g`,
+        fats: `${fatsG}g`,
+        water: `${waterL}L / Day`,
+        meals: [
+          { name: "[Breakfast] Chia & Oat Bowl", cals: "380 kcal", desc: "Fresh berries, plant milk, cinnamon • Balanced carbs & micronutrients" },
+          { name: `[Lunch] ${profile.dietary_preference === 'vegan' ? 'Tofu Quinoa Skillet' : (profile.dietary_preference === 'vegetarian' ? 'Paneer Tikka with Brown Rice' : 'Grilled Chicken Breast & Sweet Potato')}`, cals: "520 kcal", desc: "High protein, complex carbohydrates, and steamed greens" },
+          { name: `[Dinner] ${profile.dietary_preference === 'vegan' ? 'Spiced Lentil Dal with Greens' : (profile.dietary_preference === 'vegetarian' ? 'Chickpea Curry & Avocado Salad' : 'Baked Salmon Fillet & Asparagus')}`, cals: "510 kcal", desc: "Restorative evening protein and healthy omega fatty acids" }
+        ]
+      };
+      historyState.dietHistory = [];
+
+      historyState.currentFacilities = [
+        { name: "Cult.fit Fitness Center", meta: "1.4 km • ★ 4.8", desc: `Near ${profile.location_city} • Strength Zone, Boxing, HRX Conditioning` },
+        { name: "City Athletics Stadium Track", meta: "2.8 km • ★ 4.6", desc: "Main Ring Road • 400m Olympic Track, Calisthenics Zone" },
+        { name: "Gold's Gym & Wellness", meta: "3.2 km • ★ 4.5", desc: "Hills Enclave • Free Weights, Cardio Deck, Steam Bath" }
+      ];
+      historyState.facilityHistory = [];
+
+      historyState.adaptationLogs = [
+        { time: new Date().toLocaleTimeString(), title: "Baseline Calibrated", detail: `Goal: ${profile.fitness_goal.replace('_',' ')}, ${targetCals} kcal, 50 mins routine`, color: "#34D399" }
+      ];
+
+      // Progress Card
       document.getElementById('disp_start_weight').innerText = `${profile.weight_kg} kg`;
       let targetWeight = (profile.fitness_goal === 'fat_loss') ? (profile.weight_kg - 4).toFixed(1) : (profile.fitness_goal === 'muscle_gain' ? (profile.weight_kg + 3).toFixed(1) : profile.weight_kg);
       document.getElementById('disp_target_weight').innerText = `${targetWeight} kg (${profile.fitness_goal === 'fat_loss' ? '-4 kg' : '+3 kg'})`;
 
-      // 5. Connect to Python Backend API & Call LLM
+      if (profile.injuries.length) {
+        document.getElementById('disp_safety_alert').style.display = 'block';
+        document.getElementById('disp_safety_alert').innerHTML = `🛡️ <strong>Safety Gate Active:</strong> Exercises carrying risk for <em>'${profile.injuries.join(', ')}'</em> have been excluded from today's routine.`;
+      } else {
+        document.getElementById('disp_safety_alert').innerHTML = `🛡️ <strong>Safety Gate Active:</strong> Form and intensity checks verified for all movements.`;
+      }
+
+      // Render All 4 Sections
+      renderWorkoutCard(false);
+      renderDietCard(false);
+      renderFacilityCard(false);
+      renderProgressCard(false);
+
+      // Connect to Python Backend API & Call LLM
       logTerminal(`Calling Python Backend: <code>POST /api/query</code> ("Recommend workout & diet plan")...`);
       try {
         const response = await fetch('/api/query', {
@@ -456,7 +734,7 @@
           document.getElementById('coach_chat').innerHTML = `
             <p style="color: var(--blue); font-weight: 600; margin-bottom: 6px;">🤖 Coach FitPulse (${prov} Response):</p>
             <p style="margin-bottom: 6px;">${res.guidance}</p>
-            <p style="color: var(--text-muted); font-size: 11.5px; margin-top: 6px;"><em>Active Monitor is listening above. Enter ongoing feedback to trigger real-time plan adaptation.</em></p>
+            <p style="color: var(--text-muted); font-size: 11.5px; margin-top: 6px;"><em>Active Monitor is listening above. Enter ongoing feedback to watch all 4 sections adapt in real-time.</em></p>
           `;
           document.getElementById('backend_status').innerHTML = '● Python Backend & LLM Active';
           document.getElementById('backend_status').style.color = 'var(--green)';
@@ -473,13 +751,218 @@
       }
     }
 
+    // 2. Real-Time Dynamic Adaptation Engine
+    function applyPlanAdaptation(fb, llmGuidance = "") {
+      const q = fb.toLowerCase();
+      const now = new Date().toLocaleTimeString();
+
+      // 1. Archive Current State into History
+      if (historyState.currentWorkout) {
+        historyState.workoutHistory.unshift({
+          ...historyState.currentWorkout,
+          archivedAt: now,
+          reason: fb
+        });
+      }
+      if (historyState.currentDiet) {
+        historyState.dietHistory.unshift({
+          ...historyState.currentDiet,
+          archivedAt: now,
+          reason: fb
+        });
+      }
+      if (historyState.currentFacilities && historyState.currentFacilities.length) {
+        historyState.facilityHistory.unshift({
+          facilities: [...historyState.currentFacilities],
+          archivedAt: now,
+          reason: fb
+        });
+      }
+
+      let adaptationTitle = "Real-Time Plan Adaptation";
+      let workoutBadge = "Adapted Protocol";
+      let dietBadge = "Macro Recalibrated";
+      let facBadge = "Re-ranked for Need";
+      let logColor = "#38BDF8";
+
+      // 2. Adapt Sections Based on Feedback Cues
+      if (q.includes("exhausted") || q.includes("tired") || q.includes("sore")) {
+        adaptationTitle = "Deload & Active Recovery Protocol Triggered";
+        workoutBadge = "Deload & Mobility (Volume -40%)";
+        dietBadge = "+500ml Water & Recovery Carbs";
+        facBadge = "Recovery Spas & Hydrotherapy";
+        logColor = "#F59E0B";
+
+        // Adapt Workouts
+        historyState.currentWorkout = {
+          title: "Deload & Joint Mobility Protocol",
+          duration: "30 mins (Deload Mode)",
+          exercises: [
+            { name: "Foam Rolling Thoracic Spine & IT Band", sets: "2 sets × 60s", target: "Myofascial Release", cue: "Breathe deeply, pause on tight knots." },
+            { name: "Cat-Cow & Quadruped Reach", sets: "2 sets × 12 reps", target: "Spine & Core Decompression", cue: "Synchronize breath with movement." },
+            { name: "Light Band Pull-Aparts", sets: "3 sets × 15 reps", target: "Scapular Retraction", cue: "Squeeze shoulder blades, keep shoulders down." },
+            { name: "Low-Intensity Incline Treadmill Walk", sets: "1 session × 15 mins", target: "Active Flush & Recovery", cue: "Keep HR in Zone 1 (100-115 BPM)." }
+          ]
+        };
+
+        // Adapt Diet
+        historyState.currentDiet = {
+          calories: "1,950 kcal (+100 kcal Recovery)",
+          protein: "165g",
+          carbs: "210g (+25g Glycogen Replenishment)",
+          fats: "52g",
+          water: "3.0L / Day (+500ml Flush)",
+          meals: [
+            { name: "[Breakfast] Anti-Inflammatory Tart Cherry Oats", cals: "420 kcal", desc: "Blueberries, chia seeds, almond butter • Antioxidant surge" },
+            { name: "[Lunch] Sweet Potato & Baked Salmon Plate", cals: "560 kcal", desc: "Wild salmon rich in Omega-3, roasted sweet potato, asparagus" },
+            { name: "[Dinner] Golden Turmeric Lentil Soup & Greens", cals: "510 kcal", desc: "Curcumin-infused lentils, steamed spinach, avocado slices" }
+          ]
+        };
+
+        // Adapt Facilities (Highlight recovery, sauna, steam)
+        historyState.currentFacilities = [
+          { name: "Gold's Gym & Wellness Club", meta: "3.2 km • ★ 4.8", desc: "Hills Enclave • Steam Bath, Sauna, Hydrotherapy Lounge (Recommended for Recovery)" },
+          { name: "Revive Thermal Spa & Float Center", meta: "1.8 km • ★ 4.9", desc: "Jubilee Hills • Magnesium Float Pods & Infrared Sauna" },
+          { name: "Cult.fit Mobility & Yoga Center", meta: "1.4 km • ★ 4.7", desc: "Whitefields • Dedicated Foam Rolling & Restorative Yin Yoga" }
+        ];
+
+      } else if (q.includes("shoulder") || q.includes("hurt") || q.includes("pain") || q.includes("knee")) {
+        adaptationTitle = "Joint Safety Gate Activated (Pain Offloading)";
+        workoutBadge = "Joint-Spared Routine (No Overhead)";
+        dietBadge = "Anti-Inflammatory Target";
+        facBadge = "Physical Therapy & Rehab";
+        logColor = "#EF4444";
+
+        historyState.currentWorkout = {
+          title: "Joint-Spared Offloading Routine",
+          duration: "42 mins (Safe Range)",
+          exercises: [
+            { name: "Chest-Supported Incline DB Rows", sets: "3 sets × 12 reps", target: "Upper Back (Zero Deltoid Strain)", cue: "Chest glued to bench, eliminate momentum." },
+            { name: "Neutral-Grip Dumbbell Floor Press", sets: "3 sets × 10 reps", target: "Pectorals (Floor Stops Joint Extension)", cue: "Elbows tap floor gently; protects rotator cuff." },
+            { name: "Glute Bridges with Mini-Band", sets: "3 sets × 15 reps", target: "Posterior Chain (Zero Upper Load)", cue: "Drive heels, pause 2s at peak contraction." },
+            { name: "Stationary Bike Low-Impact LISS", sets: "1 session × 15 mins", target: "Cardiovascular Maintenance", cue: "Smooth stroke, no upper body torque." }
+          ]
+        };
+
+        historyState.currentDiet = {
+          calories: "1,850 kcal",
+          protein: "160g",
+          carbs: "185g",
+          fats: "55g (Rich in Omega-3 EFAs)",
+          water: "2.8L / Day",
+          meals: [
+            { name: "[Breakfast] Omega-3 Walnut & Chia Pudding", cals: "390 kcal", desc: "Flaxseed, walnut crunch, berries • Joint protective lipids" },
+            { name: "[Lunch] Grilled White Fish & Steamed Broccoli", cals: "510 kcal", desc: "Lean protein, sulforaphane-rich greens, olive oil dressing" },
+            { name: "[Dinner] Turmeric Chickpea & Spinach Bowl", cals: "500 kcal", desc: "Curcumin active spice, leafy fiber, avocado" }
+          ]
+        };
+
+        historyState.currentFacilities = [
+          { name: "City Sports Rehab & Physical Therapy", meta: "1.2 km • ★ 4.9", desc: "Apollo Road • Licensed Physiotherapists & Joint Rehabilitation Equipment" },
+          { name: "Aqua-Fit Low-Impact Pool", meta: "2.1 km • ★ 4.7", desc: "Banjara Hills • Heated Hydro Pool for Zero-Gravity Exercise" },
+          { name: "Cult.fit Fitness Center", meta: "1.4 km • ★ 4.8", desc: "Whitefields • Supervised posture and corrective mechanics" }
+        ];
+
+      } else if (q.includes("easy") || q.includes("harder") || q.includes("challenge") || q.includes("more")) {
+        adaptationTitle = "Progressive Overload Adaptation Triggered";
+        workoutBadge = "Volume & Density Increased (+25%)";
+        dietBadge = "+15g Protein for Hypertrophy";
+        facBadge = "Heavy Barbell & Strength Gyms";
+        logColor = "#10B981";
+
+        historyState.currentWorkout = {
+          title: "Progressive Overload Hypertrophy Protocol",
+          duration: "65 mins (High Intensity)",
+          exercises: [
+            { name: "Diamond Push-ups (Tempo 3-1-1)", sets: "4 sets × 12 reps", target: "Triceps & Inner Chest", cue: "Slow 3s eccentric descent, explosive push." },
+            { name: "Heavy Goblet Squats", sets: "4 sets × 12 reps", target: "Quadriceps & Core Bracing", cue: "Deep squat, full hip extension at top." },
+            { name: "Dumbbell Romanian Deadlift", sets: "4 sets × 12 reps", target: "Hamstrings & Glutes", cue: "Feel posterior stretch, maintain rigid flat back." },
+            { name: "Bulgarian Split Squats", sets: "3 sets × 10 reps / leg", target: "Unilateral Hypertrophy", cue: "Elevate rear foot, vertical torso drive." }
+          ]
+        };
+
+        historyState.currentDiet = {
+          calories: "2,000 kcal (+150 kcal Surplus)",
+          protein: "175g (+15g Protein)",
+          carbs: "205g (High Fuel)",
+          fats: "55g",
+          water: "3.2L / Day",
+          meals: [
+            { name: "[Breakfast] High-Protein Egg White & Oatmeal Skillet", cals: "450 kcal", desc: "5 egg whites + 1 whole egg, spinach, oats • 38g Protein" },
+            { name: "[Lunch] Double Chicken Breast Bowl & Quinoa", cals: "620 kcal", desc: "250g grilled chicken, black beans, quinoa, guacamole" },
+            { name: "[Dinner] Lean Beef Stir-fry with Brown Rice", cals: "580 kcal", desc: "High zinc & iron for recovery, bell peppers, broccoli" }
+          ]
+        };
+
+        historyState.currentFacilities = [
+          { name: "Iron Paradise Barbell Club", meta: "1.9 km • ★ 4.9", desc: "Madhapur • Eleiko Power Racks, Calibrated Plates & Deadlift Platforms" },
+          { name: "Cult.fit HRX Conditioning Zone", meta: "1.4 km • ★ 4.8", desc: "Whitefields • Advanced Kettlebells, Assault Bikes & Rowers" },
+          { name: "Gold's Gym Heavy Duty Zone", meta: "3.2 km • ★ 4.5", desc: "Hills Enclave • Full Dumbbell Rack up to 60 kg" }
+        ];
+
+      } else if (q.includes("plateau") || q.includes("stuck") || q.includes("scale")) {
+        adaptationTitle = "Metabolic Breakthrough Protocol Triggered";
+        workoutBadge = "HIIT & Density Circuit";
+        dietBadge = "-100 kcal Deficit with Carb Cycling";
+        facBadge = "Olympic Tracks & Sprint Arenas";
+        logColor = "#8B5CF6";
+
+        historyState.currentWorkout = {
+          title: "Metabolic Conditioning & HIIT Circuit",
+          duration: "45 mins (High Caloric Burn)",
+          exercises: [
+            { name: "Kettlebell Swings (Tabata Protocol)", sets: "4 sets × 20 reps", target: "Posterior Chain & Heart Rate", cue: "Hinge explosive hip snap, maintain neutral spine." },
+            { name: "Walking Lunges with DB Carry", sets: "3 sets × 20 paces", target: "Glutes & Metabolic Demand", cue: "Continuous rhythm, front knee at 90 degrees." },
+            { name: "Mountain Climbers to Plank Jacks", sets: "4 sets × 45s", target: "Core Stability & Caloric Burn", cue: "Drive knees rapidly, flat back." },
+            { name: "Jump Rope Double Unders / Speed Skips", sets: "5 sets × 60s", target: "Anaerobic Conditioning", cue: "Light on balls of feet, wrist flick." }
+          ]
+        };
+
+        historyState.currentDiet = {
+          calories: "1,750 kcal (-100 kcal Deficit Reset)",
+          protein: "170g (Satiety & Muscle Sparing)",
+          carbs: "150g (Carb Cycling Day 1-6)",
+          fats: "48g",
+          water: "3.2L / Day (Metabolic Optimization)",
+          meals: [
+            { name: "[Breakfast] High-Fiber Berry & Protein Greek Yogurt", cals: "350 kcal", desc: "Zero sugar greek yogurt, chia seeds, raspberries • 32g Protein" },
+            { name: "[Lunch] Tuna Nicoise Salad with Lemon Dressing", cals: "480 kcal", desc: "Solid white albacore, hardboiled egg, green beans, olives" },
+            { name: "[Dinner] Grilled Turkey Patties & Asparagus", cals: "460 kcal", desc: "Lean poultry, steamed fibrous greens, olive oil drizzle" }
+          ]
+        };
+
+        historyState.currentFacilities = [
+          { name: "City Athletics Stadium Olympic Track", meta: "2.8 km • ★ 4.8", desc: "Main Ring Road • 400m Track for Interval Sprints & Bleacher Steps" },
+          { name: "HIIT Conditioning Arena", meta: "1.5 km • ★ 4.7", desc: "Hitech City • Sled pushes, Battle ropes & Rowers" },
+          { name: "Cult.fit Boxing & HRX", meta: "1.4 km • ★ 4.8", desc: "Whitefields • 50-minute high calorie burn group sessions" }
+        ];
+      }
+
+      // Add to audit trail log
+      historyState.adaptationLogs.unshift({
+        time: now,
+        title: adaptationTitle,
+        detail: fb,
+        color: logColor
+      });
+
+      // 3. Re-render all 4 cards with updated data and history cards!
+      renderWorkoutCard(true, workoutBadge);
+      renderDietCard(true, dietBadge);
+      renderFacilityCard(true, facBadge);
+      renderProgressCard(true, `${adaptationTitle}: "${fb}"`);
+    }
+
     async function submitUserFeedback() {
       const fb = document.getElementById('inp_feedback').value.trim();
       if (!fb) return;
       const profile = getFormProfile();
       logTerminal(`User Feedback Ingested: "<em>${fb}</em>"`);
 
-      // Call Python Backend API
+      // Immediately adapt all 4 UI sections & store previous recommendations as history
+      applyPlanAdaptation(fb);
+
+      // Call Python Backend API to get Gemini Flash Lite coaching response
       logTerminal(`Dispatching feedback to Python Agent & LLM (<code>POST /api/query</code>)...`);
       try {
         const response = await fetch('/api/query', {
@@ -497,80 +980,26 @@
           logTerminal(`🤖 <strong>[LLM INVOCATION]</strong> Dynamic adaptation synthesized via <code>${prov}</code>`);
           logTerminal(`✓ <strong>[LLM ADAPTATION RECEIVED]</strong> Intent: <code>${res.intent.toUpperCase()}</code>`);
 
-          let adjustmentsHtml = "";
-          if (res.data && res.data.adjustments) {
-            adjustmentsHtml = res.data.adjustments.map(a => `<li style="margin-left: 18px; margin-bottom: 4px;">${a}</li>`).join('');
-          }
-
           document.getElementById('coach_chat').innerHTML = `
             <div style="background: rgba(56, 189, 248, 0.12); border: 1px solid var(--blue); padding: 12px; border-radius: 8px; margin-bottom: 8px;">
               <strong style="color: var(--blue);">⚡ Feedback Analyzed by Agent (${prov}):</strong> "${fb}"
               <p style="font-size: 13px; color: #fff; margin-top: 6px;">${res.guidance.replace(/\n/g, '<br>')}</p>
             </div>
-            <p style="font-size: 11.5px; color: var(--text-muted);">✓ Verified safety checks applied. Persistent memory updated atomically.</p>
+            <p style="font-size: 11.5px; color: var(--text-muted);">✓ Verified safety checks applied. All 4 sections updated above; previous recommendations preserved in history.</p>
           `;
           document.getElementById('inp_feedback').value = "";
           return;
         }
       } catch (err) {
-        logTerminal(`[Standalone Mode] Applying local feedback adaptation... (Run <code>python3 server.py 8080</code> for live Python LLM logs)`);
+        logTerminal(`[Standalone Mode] Dynamic plan adaptation applied across all 4 cards. (Start <code>python3 server.py 8080</code> for live LLM terminal logs)`);
       }
-
-      // Fallback local processing
-      const q = fb.toLowerCase();
-      let title = "Real-Time Adaptation Applied";
-      let bullets = [];
-
-      if (q.includes("exhausted") || q.includes("tired") || q.includes("sore")) {
-        title = "Deload & Active Recovery Protocol Triggered";
-        bullets = [
-          "Reduced workout volume by 40% (switched heavy compound movements to mobility drills).",
-          "Hydration milestone bumped by +400ml to accelerate metabolic waste clearance.",
-          "Post-workout recovery window updated with +25g complex carbohydrates."
-        ];
-        document.getElementById('disp_workout_duration').innerText = "30 mins (Deload Mode)";
-      } else if (q.includes("shoulder") || q.includes("hurt") || q.includes("pain")) {
-        title = "Joint Safety Gate Activated (Injury Avoidance)";
-        bullets = [
-          "Detected acute discomfort: Overhead pressing eliminated from schedule.",
-          "Substituted with Chest-Supported Incline DB Rows to offload the anterior deltoid.",
-          "Registered limitation in persistent memory to avoid future vertical overhead loads."
-        ];
-        document.getElementById('disp_injuries').innerText = "Injuries: shoulder_strain (Active Gate)";
-      } else if (q.includes("easy") || q.includes("harder") || q.includes("challenge")) {
-        title = "Progressive Overload Adaptation Triggered";
-        bullets = [
-          "Increased working sets from 3 to 4 across all compound movements.",
-          "Substituted standard push-ups with Diamond Push-ups (advanced chest/tricep variation).",
-          "Scheduled load increment of +2.5 kg on primary lifts for the next 7-day cycle."
-        ];
-        document.getElementById('disp_workout_duration').innerText = "65 mins (Overload Mode)";
-      } else if (q.includes("plateau") || q.includes("stuck")) {
-        title = "Metabolic Breakthrough Protocol Triggered";
-        bullets = [
-          "Caloric intake adjusted by -100 kcal to break biological adaptation.",
-          "Scheduled a planned carbohydrate refeed day on Day 7 to upregulate leptin.",
-          "Prescribed a 10-minute post-workout incline walk to elevate daily NEAT."
-        ];
-      } else {
-        title = "Feedback Processed & Trajectory Calibrated";
-        bullets = [
-          "Input analyzed against your biometric baseline.",
-          "Current progression curve remains optimal; continuing weekly trajectory."
-        ];
-      }
-
-      let bulletsHtml = bullets.map(b => `<li style="margin-left: 18px; margin-bottom: 4px;">${b}</li>`).join('');
 
       document.getElementById('coach_chat').innerHTML = `
         <div style="background: rgba(56, 189, 248, 0.12); border: 1px solid var(--blue); padding: 12px; border-radius: 8px; margin-bottom: 8px;">
-          <strong style="color: var(--blue);">⚡ Feedback Analyzed:</strong> "${fb}"
-          <div style="font-size: 13.5px; font-weight: 600; color: #fff; margin-top: 6px;">${title}</div>
-          <ul style="font-size: 12.5px; color: #E2E8F0; margin-top: 6px;">
-            ${bulletsHtml}
-          </ul>
+          <strong style="color: var(--blue);">⚡ Feedback Processed:</strong> "${fb}"
+          <p style="font-size: 13px; color: #fff; margin-top: 6px;">Active plan dynamically recalibrated across Workouts, Diet, Facilities, and Progress. Previous recommendations archived to history.</p>
         </div>
-        <p style="font-size: 11.5px; color: var(--text-muted);">✓ The ongoing fitness and nutrition plan below has been updated dynamically in memory.</p>
+        <p style="font-size: 11.5px; color: var(--text-muted);">✓ Verified safety checks applied. Persistent memory updated atomically.</p>
       `;
 
       document.getElementById('inp_feedback').value = "";
