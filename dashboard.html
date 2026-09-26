@@ -40,6 +40,50 @@
     .quick-chip { background: #334155; color: #E2E8F0; border: 1px solid #475569; padding: 4px 10px; border-radius: 999px; font-size: 11.5px; cursor: pointer; transition: 0.2s; }
     .quick-chip:hover { background: var(--primary); color: white; border-color: var(--primary); }
 
+    /* Inline Summary Strip */
+    .summary-strip {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 10px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+    .summary-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .summary-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+    .summary-val {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .summary-divider {
+      width: 1px;
+      height: 30px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    @media (max-width: 1024px) {
+      .summary-strip { flex-wrap: wrap; gap: 12px; }
+      .summary-divider { display: none; }
+    }
+
     /* 4 Sections in Single Line Layout */
     .grid-4cols {
       display: grid;
@@ -213,24 +257,29 @@
       </div>
     </div>
 
-    <!-- Active Profile Summary Bar -->
-    <div class="card" style="margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center;">
-      <div>
-        <div style="font-size: 11px; color: var(--text-muted);">ACTIVE USER</div>
-        <div style="font-weight: 600; font-size: 15px;" id="disp_user">Alex Rivera (28)</div>
+    <!-- Active Profile Summary Bar (Horizontal Inline Strip) -->
+    <div class="summary-strip">
+      <div class="summary-item">
+        <span class="summary-label">Active User</span>
+        <span class="summary-val" id="disp_user">Alex Rivera (28, male)</span>
       </div>
-      <div>
-        <div style="font-size: 11px; color: var(--text-muted);">GOAL & BIOMETRICS</div>
-        <div style="font-weight: 600; font-size: 14px;" id="disp_bio">70 kg | 175 cm | <span style="color: var(--primary);">Fat Loss</span></div>
+      <div class="summary-divider"></div>
+      <div class="summary-item">
+        <span class="summary-label">Goal & Biometrics</span>
+        <span class="summary-val" id="disp_bio">70 kg | 175 cm | <span style="color: var(--primary);">FAT LOSS</span></span>
       </div>
-      <div>
-        <div style="font-size: 11px; color: var(--text-muted);">SAFETY GATE MONITORS</div>
-        <span class="pill" id="disp_injuries">Injuries: knee_pain</span>
-        <span class="pill" style="background: rgba(56, 189, 248, 0.15); color: var(--blue); border-color: var(--blue);" id="disp_allergies">Allergies: peanuts</span>
+      <div class="summary-divider"></div>
+      <div class="summary-item">
+        <span class="summary-label">Safety Gate Monitors</span>
+        <div class="summary-val" style="display: flex; gap: 8px; align-items: center;">
+          <span class="pill" id="disp_injuries" style="margin: 0;">Injuries: knee_pain</span>
+          <span class="pill" style="background: rgba(56, 189, 248, 0.15); color: var(--blue); border-color: var(--blue); margin: 0;" id="disp_allergies">Allergies: peanuts</span>
+        </div>
       </div>
-      <div>
-        <div style="font-size: 11px; color: var(--text-muted);">LOCATION</div>
-        <div style="font-weight: 600; font-size: 13px;" id="disp_city">Hyderabad</div>
+      <div class="summary-divider"></div>
+      <div class="summary-item">
+        <span class="summary-label">Location</span>
+        <span class="summary-val" id="disp_city">Hyderabad</span>
       </div>
     </div>
 
