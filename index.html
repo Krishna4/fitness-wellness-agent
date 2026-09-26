@@ -6,7 +6,7 @@
   <title>Fitness & Wellness Agent | Dynamic Assistant</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #1A9988;
@@ -53,7 +53,12 @@
     .stat-val { font-weight: 600; color: var(--text); }
     .alert-box { background: rgba(235, 86, 0, 0.12); border-left: 3px solid var(--coral); padding: 10px 12px; font-size: 12px; color: #FDBA74; margin-top: 12px; border-radius: 0 6px 6px 0; }
     .chat-box { background: rgba(15, 23, 42, 0.6); border-radius: 8px; padding: 14px; min-height: 90px; font-size: 13px; line-height: 1.5; color: #E2E8F0; }
-    .footer-note { text-align: center; margin-top: 30px; font-size: 12px; color: var(--text-muted); }
+    
+    /* Terminal Console */
+    .terminal-card { background: #090D16; border: 1px solid #1E293B; border-radius: 10px; padding: 16px; margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .terminal-header { display: flex; justify-content: space-between; color: var(--text-muted); font-size: 11px; margin-bottom: 10px; border-bottom: 1px solid #1E293B; padding-bottom: 6px; }
+    .terminal-body { max-height: 160px; overflow-y: auto; color: #38BDF8; line-height: 1.6; font-family: 'JetBrains Mono', monospace; }
+    .footer-note { text-align: center; margin-top: 24px; font-size: 12px; color: var(--text-muted); }
   </style>
 </head>
 <body>
@@ -65,7 +70,7 @@
       </div>
       <div style="text-align: right;">
         <span class="badge">Team FitPulse</span>
-        <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Presenter: Murali Krishna D</p>
+        <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Full-Stack Python + Gemini LLM</p>
       </div>
     </header>
 
@@ -74,7 +79,7 @@
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <div>
           <h2 style="font-size: 16px; font-weight: 600; color: var(--text);">📋 Step 1: User Fitness Profile</h2>
-          <p style="font-size: 12px; color: var(--text-muted);">Enter your attributes to calibrate the agent's baseline models, safety gates, and facility lookups.</p>
+          <p style="font-size: 12px; color: var(--text-muted);">Enter attributes to calibrate the agent's baseline models, safety gates, and facility lookups.</p>
         </div>
         <button class="btn-submit" onclick="generateCustomPlan()">⚡ Generate My Plan</button>
       </div>
@@ -158,7 +163,7 @@
       </div>
     </div>
 
-    <!-- FEATURE 5 (PLACED AT TOP): Active Plan Monitor & Real-Time Adaptation -->
+    <!-- FEATURE 5 (TOP POSITION): Active Plan Monitor & Real-Time Adaptation -->
     <div class="card" style="border: 1px solid var(--blue); margin-bottom: 24px; background: rgba(30, 41, 59, 0.9);">
       <div class="card-title" style="color: var(--blue);">
         <span>⚡ 5. Active Plan Monitor & Real-Time Plan Adaptation</span>
@@ -281,18 +286,35 @@
       </div>
     </div>
 
+    <!-- Real-Time System & LLM Execution Console -->
+    <div class="terminal-card">
+      <div class="terminal-header">
+        <span>🖥️ LIVE SYSTEM & LLM INVOCATION CONSOLE</span>
+        <span id="backend_status" style="color: var(--green);">● Backend Server Connected</span>
+      </div>
+      <div class="terminal-body" id="term_log">
+        <div>&gt; [INITIALIZE] Fitness &amp; Wellness Agent initialized.</div>
+        <div>&gt; [LLM ENGINE] Provider: Google Gemini (gemini-flash-lite-latest) / Local Ollama ready.</div>
+        <div>&gt; [MONITOR] System listening for profile calibration and real-time user feedback...</div>
+      </div>
+    </div>
+
     <div class="footer-note">
       Fitness & Wellness Agent | Pure Python 3 & Modular ReAct Architecture | GitHub: Krishna4/fitness-wellness-agent
     </div>
   </div>
 
   <script>
-    function quickFeedback(text) {
-      document.getElementById('inp_feedback').value = text;
-      submitUserFeedback();
+    function logTerminal(msg) {
+      const term = document.getElementById('term_log');
+      const timeStr = new Date().toLocaleTimeString();
+      const div = document.createElement('div');
+      div.innerHTML = `&gt; [${timeStr}] ${msg}`;
+      term.appendChild(div);
+      term.scrollTop = term.scrollHeight;
     }
 
-    function generateCustomPlan() {
+    function getFormProfile() {
       const name = document.getElementById('inp_name').value || 'Guest';
       const age = parseInt(document.getElementById('inp_age').value) || 28;
       const gender = document.getElementById('inp_gender').value;
@@ -300,34 +322,59 @@
       const height = parseFloat(document.getElementById('inp_height').value) || 175.0;
       const goal = document.getElementById('inp_goal').value;
       const diet = document.getElementById('inp_diet').value;
-      const injuries = document.getElementById('inp_injuries').value.toLowerCase();
-      const allergies = document.getElementById('inp_allergies').value.toLowerCase();
+      const injuriesStr = document.getElementById('inp_injuries').value.toLowerCase();
+      const allergiesStr = document.getElementById('inp_allergies').value.toLowerCase();
       const city = document.getElementById('inp_city').value || 'Hyderabad';
 
+      return {
+        user_id: 'user_' + name.toLowerCase().replace(/\s+/g, '_'),
+        name: name,
+        age: age,
+        gender: gender,
+        weight_kg: weight,
+        height_cm: height,
+        fitness_goal: goal,
+        experience_level: 'intermediate',
+        dietary_preference: diet,
+        injuries: injuriesStr ? injuriesStr.split(',').map(s => s.trim().replace(/\s+/g, '_')) : [],
+        allergies: allergiesStr ? allergiesStr.split(',').map(s => s.trim()) : [],
+        location_city: city
+      };
+    }
+
+    function quickFeedback(text) {
+      document.getElementById('inp_feedback').value = text;
+      submitUserFeedback();
+    }
+
+    async function generateCustomPlan() {
+      const profile = getFormProfile();
+      logTerminal(`User profile submitted for <strong>${profile.name}</strong> (${profile.fitness_goal}, ${profile.location_city}).`);
+
       // Update Summary Bar
-      document.getElementById('disp_user').innerText = `${name} (${age}, ${gender})`;
-      document.getElementById('disp_bio').innerHTML = `${weight} kg | ${height} cm | <span style="color: var(--primary);">${goal.replace('_', ' ').toUpperCase()}</span>`;
-      document.getElementById('disp_injuries').innerText = injuries ? `Injuries: ${injuries}` : 'No Injuries';
-      document.getElementById('disp_allergies').innerText = allergies ? `Allergies: ${allergies}` : 'No Allergies';
-      document.getElementById('disp_city').innerText = city;
+      document.getElementById('disp_user').innerText = `${profile.name} (${profile.age}, ${profile.gender})`;
+      document.getElementById('disp_bio').innerHTML = `${profile.weight_kg} kg | ${profile.height_cm} cm | <span style="color: var(--primary);">${profile.fitness_goal.replace('_', ' ').toUpperCase()}</span>`;
+      document.getElementById('disp_injuries').innerText = profile.injuries.length ? `Injuries: ${profile.injuries.join(', ')}` : 'No Injuries';
+      document.getElementById('disp_allergies').innerText = profile.allergies.length ? `Allergies: ${profile.allergies.join(', ')}` : 'No Allergies';
+      document.getElementById('disp_city').innerText = profile.location_city;
 
       // 1. Calculate BMR & TDEE (Mifflin-St Jeor)
-      let bmr = (gender === 'male') 
-        ? (10 * weight + 6.25 * height - 5 * age + 5)
-        : (10 * weight + 6.25 * height - 5 * age - 161);
+      let bmr = (profile.gender === 'male') 
+        ? (10 * profile.weight_kg + 6.25 * profile.height_cm - 5 * profile.age + 5)
+        : (10 * profile.weight_kg + 6.25 * profile.height_cm - 5 * profile.age - 161);
       
       let tdee = bmr * 1.375;
-      let targetCals = Math.round(goal === 'fat_loss' ? (tdee - 450) : (goal === 'muscle_gain' ? (tdee + 300) : tdee));
+      let targetCals = Math.round(profile.fitness_goal === 'fat_loss' ? (tdee - 450) : (profile.fitness_goal === 'muscle_gain' ? (tdee + 300) : tdee));
       targetCals = Math.max(targetCals, 1300);
 
-      let pRatio = (goal === 'fat_loss') ? 0.35 : 0.30;
-      let cRatio = (goal === 'fat_loss') ? 0.40 : 0.45;
+      let pRatio = (profile.fitness_goal === 'fat_loss') ? 0.35 : 0.30;
+      let cRatio = (profile.fitness_goal === 'fat_loss') ? 0.40 : 0.45;
       let fRatio = 0.25;
 
       let proteinG = Math.round((targetCals * pRatio) / 4);
       let carbsG = Math.round((targetCals * cRatio) / 4);
       let fatsG = Math.round((targetCals * fRatio) / 9);
-      let waterL = (weight * 0.035).toFixed(1);
+      let waterL = (profile.weight_kg * 0.035).toFixed(1);
 
       document.getElementById('disp_calories').innerText = `${targetCals} kcal`;
       document.getElementById('disp_protein').innerText = `${proteinG}g`;
@@ -346,7 +393,7 @@
       ];
 
       let safeExercises = exercises.filter(ex => {
-        return !ex.contra.some(c => injuries.includes(c));
+        return !ex.contra.some(c => profile.injuries.some(inj => inj.includes(c)));
       });
 
       let workoutHtml = "";
@@ -360,10 +407,9 @@
       });
       document.getElementById('workout_list').innerHTML = workoutHtml;
 
-      // Safety Alert
-      if (injuries && injuries !== 'none') {
+      if (profile.injuries.length) {
         document.getElementById('disp_safety_alert').style.display = 'block';
-        document.getElementById('disp_safety_alert').innerHTML = `🛡️ <strong>Safety Gate Active:</strong> Exercises carrying risk for <em>'${injuries}'</em> have been automatically excluded from today's routine.`;
+        document.getElementById('disp_safety_alert').innerHTML = `🛡️ <strong>Safety Gate Active:</strong> Exercises carrying risk for <em>'${profile.injuries.join(', ')}'</em> have been automatically excluded from today's routine.`;
       } else {
         document.getElementById('disp_safety_alert').innerHTML = `🛡️ <strong>Safety Gate Active:</strong> Form and intensity checks verified for all movements.`;
       }
@@ -375,34 +421,103 @@
           <div class="item-desc">Fresh berries, plant milk, cinnamon • Balanced carbs & micronutrients</div>
         </div>
         <div class="item-box">
-          <div class="item-header"><span>[Lunch] ${diet === 'vegan' ? 'Tofu Quinoa Skillet' : (diet === 'vegetarian' ? 'Paneer Tikka with Brown Rice' : 'Grilled Chicken Breast & Sweet Potato')}</span><span>520 kcal</span></div>
+          <div class="item-header"><span>[Lunch] ${profile.dietary_preference === 'vegan' ? 'Tofu Quinoa Skillet' : (profile.dietary_preference === 'vegetarian' ? 'Paneer Tikka with Brown Rice' : 'Grilled Chicken Breast & Sweet Potato')}</span><span>520 kcal</span></div>
           <div class="item-desc">High protein, complex carbohydrates, and steamed greens</div>
         </div>
         <div class="item-box">
-          <div class="item-header"><span>[Dinner] ${diet === 'vegan' ? 'Spiced Lentil Dal with Greens' : (diet === 'vegetarian' ? 'Chickpea Curry & Avocado Salad' : 'Baked Salmon Fillet & Asparagus')}</span><span>510 kcal</span></div>
+          <div class="item-header"><span>[Dinner] ${profile.dietary_preference === 'vegan' ? 'Spiced Lentil Dal with Greens' : (profile.dietary_preference === 'vegetarian' ? 'Chickpea Curry & Avocado Salad' : 'Baked Salmon Fillet & Asparagus')}</span><span>510 kcal</span></div>
           <div class="item-desc">Restorative evening protein and healthy omega fatty acids</div>
         </div>
       `;
       document.getElementById('meal_list').innerHTML = mealHtml;
 
       // 4. Progress Card
-      document.getElementById('disp_start_weight').innerText = `${weight} kg`;
-      let targetWeight = (goal === 'fat_loss') ? (weight - 4).toFixed(1) : (goal === 'muscle_gain' ? (weight + 3).toFixed(1) : weight);
-      document.getElementById('disp_target_weight').innerText = `${targetWeight} kg (${goal === 'fat_loss' ? '-4 kg' : '+3 kg'})`;
+      document.getElementById('disp_start_weight').innerText = `${profile.weight_kg} kg`;
+      let targetWeight = (profile.fitness_goal === 'fat_loss') ? (profile.weight_kg - 4).toFixed(1) : (profile.fitness_goal === 'muscle_gain' ? (profile.weight_kg + 3).toFixed(1) : profile.weight_kg);
+      document.getElementById('disp_target_weight').innerText = `${targetWeight} kg (${profile.fitness_goal === 'fat_loss' ? '-4 kg' : '+3 kg'})`;
 
-      // 5. Initial Coach Message
-      document.getElementById('coach_chat').innerHTML = `
-        <p style="color: var(--blue); font-weight: 600; margin-bottom: 6px;">🤖 Coach FitPulse (Gemini Lite Active):</p>
-        <p style="margin-bottom: 6px;">"Profile synchronized for <strong>${name}</strong> (${goal.replace('_', ' ').toUpperCase()}). Target: <strong>${targetCals} kcal</strong> with <strong>${proteinG}g protein</strong>."</p>
-        <p style="color: var(--text-muted); font-size: 12.5px;"><em>Active Monitor is listening above. Enter how you feel or test the quick cue buttons to watch the plan adapt in real-time.</em></p>
-      `;
+      // 5. Connect to Python Backend API & Call LLM
+      logTerminal(`Calling Python Backend: <code>POST /api/query</code> ("Recommend workout & diet plan")...`);
+      try {
+        const response = await fetch('/api/query', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            profile: profile,
+            query: 'Recommend personalized workout routine and nutritional plan'
+          })
+        });
+
+        if (response.ok) {
+          const res = await response.json();
+          const prov = res.llm_trace ? `${res.llm_trace.provider} (${res.llm_trace.model})` : 'GEMINI LITE';
+          logTerminal(`🤖 <strong>[LLM INVOCATION]</strong> Model: <code>${prov}</code> | Intent: <code>${res.intent.toUpperCase()}</code>`);
+          logTerminal(`✓ <strong>[LLM RESPONSE]</strong> "${res.guidance.substring(0, 95)}..."`);
+          document.getElementById('coach_chat').innerHTML = `
+            <p style="color: var(--blue); font-weight: 600; margin-bottom: 6px;">🤖 Coach FitPulse (${prov} Response):</p>
+            <p style="margin-bottom: 6px;">${res.guidance}</p>
+            <p style="color: var(--text-muted); font-size: 11.5px; margin-top: 6px;"><em>Active Monitor is listening above. Enter ongoing feedback to trigger real-time plan adaptation.</em></p>
+          `;
+          document.getElementById('backend_status').innerHTML = '● Python Backend & LLM Active';
+          document.getElementById('backend_status').style.color = 'var(--green)';
+        } else {
+          throw new Error('HTTP ' + response.status);
+        }
+      } catch (err) {
+        logTerminal(`⚠️ Python backend not responding (Status 501/offline). Make sure to start the server with <code>python3 server.py 8080</code> (not <code>python -m http.server</code>).`);
+        document.getElementById('coach_chat').innerHTML = `
+          <p style="color: var(--blue); font-weight: 600; margin-bottom: 6px;">🤖 Coach FitPulse (Standby Mode):</p>
+          <p style="margin-bottom: 6px;">"Profile synchronized for <strong>${profile.name}</strong> (${profile.fitness_goal.replace('_', ' ').toUpperCase()}). Target: <strong>${targetCals} kcal</strong> with <strong>${proteinG}g protein</strong>."</p>
+          <p style="color: #f87171; font-size: 11.5px;"><em>Notice: Run <code>python3 server.py 8080</code> in your terminal to enable live Gemini LLM invocations and terminal logging!</em></p>
+        `;
+      }
     }
 
-    function submitUserFeedback() {
+    async function submitUserFeedback() {
       const fb = document.getElementById('inp_feedback').value.trim();
       if (!fb) return;
-      const q = fb.toLowerCase();
+      const profile = getFormProfile();
+      logTerminal(`User Feedback Ingested: "<em>${fb}</em>"`);
 
+      // Call Python Backend API
+      logTerminal(`Dispatching feedback to Python Agent & LLM (<code>POST /api/query</code>)...`);
+      try {
+        const response = await fetch('/api/query', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            profile: profile,
+            query: fb
+          })
+        });
+
+        if (response.ok) {
+          const res = await response.json();
+          const prov = res.llm_trace ? `${res.llm_trace.provider} (${res.llm_trace.model})` : 'GEMINI LITE';
+          logTerminal(`🤖 <strong>[LLM INVOCATION]</strong> Dynamic adaptation synthesized via <code>${prov}</code>`);
+          logTerminal(`✓ <strong>[LLM ADAPTATION RECEIVED]</strong> Intent: <code>${res.intent.toUpperCase()}</code>`);
+
+          let adjustmentsHtml = "";
+          if (res.data && res.data.adjustments) {
+            adjustmentsHtml = res.data.adjustments.map(a => `<li style="margin-left: 18px; margin-bottom: 4px;">${a}</li>`).join('');
+          }
+
+          document.getElementById('coach_chat').innerHTML = `
+            <div style="background: rgba(56, 189, 248, 0.12); border: 1px solid var(--blue); padding: 12px; border-radius: 8px; margin-bottom: 8px;">
+              <strong style="color: var(--blue);">⚡ Feedback Analyzed by Agent (${prov}):</strong> "${fb}"
+              <p style="font-size: 13px; color: #fff; margin-top: 6px;">${res.guidance.replace(/\n/g, '<br>')}</p>
+            </div>
+            <p style="font-size: 11.5px; color: var(--text-muted);">✓ Verified safety checks applied. Persistent memory updated atomically.</p>
+          `;
+          document.getElementById('inp_feedback').value = "";
+          return;
+        }
+      } catch (err) {
+        logTerminal(`[Standalone Mode] Applying local feedback adaptation... (Run <code>python3 server.py 8080</code> for live Python LLM logs)`);
+      }
+
+      // Fallback local processing
+      const q = fb.toLowerCase();
       let title = "Real-Time Adaptation Applied";
       let bullets = [];
 

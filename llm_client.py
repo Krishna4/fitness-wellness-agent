@@ -49,10 +49,10 @@ class LLMClient:
         start_time = time.time()
         active_model = self.gemini_model if self.provider == "gemini" else self.ollama_model
 
-        print(f"\n" + "─" * 70)
-        print(f"🤖 [LLM INVOCATION] Provider: {self.provider.upper()} | Model: {active_model}")
-        print(f"   [System Directive]: {system_instruction[:90]}..." if system_instruction else "   [System Directive]: Default")
-        print(f"   [Input Prompt]: \"{prompt[:130]}...\"")
+        print(f"\n" + "─" * 70, flush=True)
+        print(f"🤖 [LLM INVOCATION] Provider: {self.provider.upper()} | Model: {active_model}", flush=True)
+        print(f"   [System Directive]: {system_instruction[:90]}..." if system_instruction else "   [System Directive]: Default", flush=True)
+        print(f"   [Input Prompt]: \"{prompt[:130]}...\"", flush=True)
 
         response = ""
         try:
@@ -60,14 +60,14 @@ class LLMClient:
                 try:
                     response = self._call_gemini(prompt, system_instruction)
                 except Exception as e:
-                    print(f"   ⚠️ [Gemini Error]: {e} -> Attempting fallback...")
+                    print(f"   ⚠️ [Gemini Error]: {e} -> Attempting fallback...", flush=True)
                     response = self._call_ollama(prompt, system_instruction) if self._is_ollama_available() else self._offline_fallback(prompt)
 
             elif self.provider == "ollama":
                 try:
                     response = self._call_ollama(prompt, system_instruction)
                 except Exception as e:
-                    print(f"   ⚠️ [Ollama Error]: {e} -> Attempting fallback...")
+                    print(f"   ⚠️ [Ollama Error]: {e} -> Attempting fallback...", flush=True)
                     response = self._offline_fallback(prompt)
             else:
                 response = self._offline_fallback(prompt)
@@ -75,8 +75,8 @@ class LLMClient:
         finally:
             elapsed = time.time() - start_time
             preview = response.replace('\n', ' ')[:95]
-            print(f"   ✓ [LLM Response Received in {elapsed:.2f}s]: \"{preview}...\"")
-            print("─" * 70 + "\n")
+            print(f"   ✓ [LLM Response Received in {elapsed:.2f}s]: \"{preview}...\"", flush=True)
+            print("─" * 70 + "\n", flush=True)
 
             # Append to persistent trace log
             try:
