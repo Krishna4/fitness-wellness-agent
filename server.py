@@ -10,10 +10,20 @@ Run with:
 import sys
 import json
 import os
+import socket
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from schemas import UserProfile, ProgressEntry
 from memory import MemoryStore
 from agent import FitnessWellnessAgent
+
+class DualStackServer(HTTPServer):
+    address_family = socket.AF_INET6
+    def server_bind(self):
+        try:
+            self.socket.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_V6ONLY, 0)
+        except Exception:
+            pass
+        super().server_bind()
 
 memory = MemoryStore(storage_path="fitness_memory.json")
 agent = FitnessWellnessAgent(memory_store=memory)
@@ -136,14 +146,16 @@ class AgentWebHandler(SimpleHTTPRequestHandler):
             pass
 
 def run_server(port: int = 8080):
-    server_address = ("", port)
-    httpd = HTTPServer(server_address, AgentWebHandler)
-    print("=" * 70)
-    print(f"🚀 FITNESS & WELLNESS AGENT WEB SERVER STARTED")
-    print(f"   URL: http://localhost:{port}")
-    print(f"   LLM Provider: {agent.llm.provider.upper()} ({agent.llm.gemini_model if agent.llm.provider == 'gemini' else agent.llm.ollama_model})")
-    print("   Live terminal logging of all API queries & LLM calls is ACTIVE.")
-    print("=" * 70 + "\n")
+    try:
+        httpd = DualStackServer(("::", port), AgentWebHandler)
+    except Exception:
+        httpd = HTTPServer(("", port), AgentWebHandler)
+    print("=" * 70, flush=True)
+    print(f"🚀 FITNESS & WELLNESS AGENT WEB SERVER STARTED", flush=True)
+    print(f"   URL: http://localhost:{port}", flush=True)
+    print(f"   LLM Provider: {agent.llm.provider.upper()} ({agent.llm.gemini_model if agent.llm.provider == 'gemini' else agent.llm.ollama_model})", flush=True)
+    print("   Live terminal logging of all API queries & LLM calls is ACTIVE.", flush=True)
+    print("=" * 70 + "\n", flush=True)
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
