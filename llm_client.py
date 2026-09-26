@@ -45,21 +45,56 @@ class LLMClient:
         self.ollama_model = OLLAMA_MODEL
 
     def generate(self, prompt: str, system_instruction: str = "") -> str:
-        """Generate text response using the configured LLM provider."""
-        if self.provider == "gemini" and self.gemini_key:
-            try:
-                return self._call_gemini(prompt, system_instruction)
-            except Exception as e:
-                # Log warning and attempt local fallback
-                return self._call_ollama(prompt, system_instruction) if self._is_ollama_available() else self._offline_fallback(prompt)
+        """Generate text response with transparent logging of prompt, model, and latency."""
+        start_time = time.time()
+        active_model = self.gemini_model if self.provider == "gemini" else self.ollama_model
 
-        elif self.provider == "ollama":
+        print(f"\n" + "─" * 70)
+        print(f"🤖 [LLM INVOCATION] Provider: {self.provider.upper()} | Model: {active_model}")
+        print(f"   [System Directive]: {system_instruction[:90]}..." if system_instruction else "   [System Directive]: Default")
+        print(f"   [Input Prompt]: \"{prompt[:130]}...\"")
+
+        response = ""
+        try:
+            if self.provider == "gemini" and self.gemini_key:
+                try:
+                    response = self._call_gemini(prompt, system_instruction)
+                except Exception as e:
+                    print(f"   ⚠️ [Gemini Error]: {e} -> Attempting fallback...")
+                    response = self._call_ollama(prompt, system_instruction) if self._is_ollama_available() else self._offline_fallback(prompt)
+
+            elif self.provider == "ollama":
+                try:
+                    response = self._call_ollama(prompt, system_instruction)
+                except Exception as e:
+                    print(f"   ⚠️ [Ollama Error]: {e} -> Attempting fallback...")
+                    response = self._offline_fallback(prompt)
+            else:
+                response = self._offline_fallback(prompt)
+
+        finally:
+            elapsed = time.time() - start_time
+            preview = response.replace('\n', ' ')[:95]
+            print(f"   ✓ [LLM Response Received in {elapsed:.2f}s]: \"{preview}...\"")
+            print("─" * 70 + "\n")
+
+            # Append to persistent trace log
             try:
-                return self._call_ollama(prompt, system_instruction)
+                with open("llm_execution.log", "a", encoding="utf-8") as f:
+                    log_entry = {
+                        "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+                        "provider": self.provider,
+                        "model": active_model,
+                        "prompt": prompt,
+                        "system_instruction": system_instruction,
+                        "latency_sec": round(elapsed, 2),
+                        "response_preview": preview
+                    }
+                    f.write(json.dumps(log_entry) + "\n")
             except Exception:
-                return self._offline_fallback(prompt)
+                pass
 
-        return self._offline_fallback(prompt)
+        return response
 
     def _call_gemini(self, prompt: str, system_instruction: str = "") -> str:
         """Call Google Gemini REST API."""
